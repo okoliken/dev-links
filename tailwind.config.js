@@ -5,7 +5,22 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        brandGrey:'#FAFAFA',
+        brandPurple:'#633CFF',
+        brandLightPurple:'#EFEBFF',
+        brandSoftGrey:'#737373',
+        brandDarkGrey:'#333',
+        brandDark:'#1A1A1A',
+        brandRed:'#EE3939',
+        brandBlue:'#2D68FF',
+        brandSoftRed:'#FF3939'
+      },
+      boxShadow: {
+        'brandShadowDark': '0px 0px 32px 0px rgba(99, 60, 255, 0.25)',
+      }
+    },
   },
   plugins: [],
 }
