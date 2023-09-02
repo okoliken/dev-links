@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import DevButton from '../components/form-elements/DevButton.vue'
 import DevInput from '../components/form-elements/DevInput.vue'
+import DevSelect from '../components/form-elements/DevSelect.vue'
 </script>
 <template>
     <div class="container mx-auto mt-28">
@@ -14,6 +15,8 @@ import DevInput from '../components/form-elements/DevInput.vue'
             </DevButton>
             <p class="text-blue-700 my-7">Input</p>
             <DevInput />
+            <p class="text-blue-700 my-7">Select</p>
+            <DevSelect :options="['Go', 'TypeScript', 'Css', 'Svelte']" />
         </div>
     </div>
 </template>

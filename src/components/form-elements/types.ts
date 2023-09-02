@@ -19,3 +19,7 @@ export interface DevInput {
     rules: (val:any) => any;
     icon:string
 }
+
+export interface DevSelect {
+  options: string[];
+}

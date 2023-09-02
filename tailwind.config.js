@@ -19,6 +19,7 @@ module.exports = {
       },
       boxShadow: {
         'brandShadowDark': '0px 0px 32px 0px rgba(99, 60, 255, 0.25)',
+        'optionShadow': '0px 0px 32px 0px rgba(0, 0, 0, 0.10)'
       }
     },
   },
