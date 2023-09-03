@@ -12,6 +12,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vee-validate/zod": "^4.11.3",
     "animate.css": "^4.1.1",
     "vee-validate": "^4.11.3",
     "vue": "^3.3.4",

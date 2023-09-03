@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type DevButton } from './types.ts'
+import { type DevButton } from './types'
 import { computed } from 'vue'
 const { disabled, type = 'filled', isLoading, width } = defineProps<DevButton>()
 
@@ -31,12 +31,11 @@ const _loaderColor = computed(() => {
 </template>
 
 <style scoped>
-
 .loader.filled {
   width: 28px;
   height: 28px;
-  border:5px solid;
-  border-color:#fff transparent;
+  border: 5px solid;
+  border-color: #fff transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
@@ -46,8 +45,8 @@ const _loaderColor = computed(() => {
 .loader.outlined {
   width: 28px;
   height: 28px;
-  border:5px solid;
-  border-color:#633CFF transparent;
+  border: 5px solid;
+  border-color: #633cff transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;

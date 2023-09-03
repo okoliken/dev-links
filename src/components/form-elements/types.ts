@@ -16,8 +16,9 @@ export interface DevButton {
 export interface DevInput {
     name:string;
     type:string;
-    rules: (val:any) => any;
-    icon:string
+    
+    icon:string;
+    placeholder:string
 }
 
 export interface DevSelect {
