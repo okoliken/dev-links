@@ -16,7 +16,7 @@ const formSchema = toTypedSchema(loginSchema)
         Add your details below to get back into the app
       </p>
 
-      <Form v-slot="{ errorBag }" class="mt-7" :validation-schema="formSchema">
+      <Form v-slot="{ errorBag, errors }" class="mt-7" :validation-schema="formSchema">
         <div class="mt-5">
           <label
             :class="[errorBag?.email?.length ? 'text-brandSoftRed' : null]"
@@ -44,10 +44,21 @@ const formSchema = toTypedSchema(loginSchema)
             icon="ri-lock-2-fill"
           />
         </div>
-        <DevButton :is-loading="false" type="filled" class="w-full my-8"> Login </DevButton>
+        <DevButton
+          :disabled="Object.keys(errors).length"
+          :is-loading="false"
+          type="filled"
+          class="w-full my-8"
+        >
+          Login
+        </DevButton>
 
         <p class="mt-5 mb-7 text-center text-brandSoftGrey font-light">
-          Don’t have an account? <span class="text-brandPurple">Create account</span>
+          Don’t have an account?
+          <span class="text-brandPurple hover:underline">
+            <br class="block lg:hidden" />
+            <router-link to="/auth/create-account"> Create account</router-link></span
+          >
         </p>
       </Form>
     </div>

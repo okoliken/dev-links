@@ -6,11 +6,11 @@
 
 
  <template>
-    <div class="bg-brandGrey h-screen flex items-center justify-center flex-col">
+    <div class="bg-white  md:bg-brandGrey h-screen flex items-center justify-center flex-col">
 
 
-        <div class="my-8">
-            <img src="../assets/logo.svg" alt="" srcset="">
+        <div class=" container px-8 mx-auto flex items-start sm:items-center sm:justify-center my-8">
+            <img src="../assets/logo.svg" alt="logo">
         </div>
 
         <slot></slot>

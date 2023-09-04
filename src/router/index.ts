@@ -48,7 +48,7 @@ const router = createRouter({
       }
     },
     {
-      path:'/auth/signup',
+      path:'/auth/create-account',
       name:'Signup',
       component:SignupVue,
       meta:{

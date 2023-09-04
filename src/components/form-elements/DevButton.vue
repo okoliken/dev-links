@@ -4,9 +4,9 @@ import { computed } from 'vue'
 const { disabled, type = 'filled', isLoading, width } = defineProps<DevButton>()
 
 const filed =
-  'transition-all active:duration-50 duration-50 ease-linear active:scale-95 active:bg-[#BEADFF] disabled:opacity-[0.25] disabled:cursor-not-allowed hover:bg-[#BEADFF] hover:shadow-brandShadowDark'
+  'transition-all active:duration-50 duration-50 ease-linear  active:scale-95 active:bg-[#BEADFF] disabled:opacity-[0.25] disabled:cursor-not-allowed hover:bg-[#BEADFF] hover:shadow-brandShadowDark'
 const outlined =
-  'transition-all active:duration-50 duration-50 ease-in-out active:scale-95 active:bg-[#EFEBFF] hover:bg-[#EFEBFF] disabled:opacity-[0.25] disabled:cursor-not-allowed'
+  'transition-all active:duration-50 duration-50 ease-in-out  active:scale-95 active:bg-[#EFEBFF] hover:bg-[#EFEBFF] disabled:opacity-[0.25] disabled:cursor-not-allowed'
 
 const _buttonType = computed(() => {
   return type === 'filled'

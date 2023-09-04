@@ -4,7 +4,7 @@
 export type buttonType = 'filled' | 'outlined';
 
 export interface DevButton {
-  disabled?: boolean;
+  disabled?: boolean | any;
   type: buttonType;
   isLoading?:boolean;
   width?:string
@@ -16,7 +16,6 @@ export interface DevButton {
 export interface DevInput {
     name:string;
     type:string;
-    
     icon:string;
     placeholder:string
 }
