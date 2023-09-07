@@ -6,6 +6,10 @@ import Login from '@/views/auth/Login.vue'
 import SignupVue from '@/views/auth/Signup.vue'
 // @ts-ignore
 import InteractiveElement from '@/views/elements.vue'
+import ProfileDetailsVue from '../views/ProfileDetails.vue'
+import EditorLayout from '../layouts/EditorLayout.vue'
+import AuthLayoutVue from '@/layouts/AuthLayout.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -15,7 +19,7 @@ const router = createRouter({
       component: Editor,
       meta:{
         hasAccess:true,
-         layout:"EditorLayout"
+         layout:EditorLayout
       }
     },
     {
@@ -25,7 +29,7 @@ const router = createRouter({
       component: () => import('../views/ProfileDetails.vue'),
       meta:{
         hasAccess:true,
-         layout:"EditorLayout"
+         layout:EditorLayout
       }
     },
     {
@@ -35,7 +39,7 @@ const router = createRouter({
       component: () => import('../views/Preview.vue'),
       meta:{
         hasAccess:true,
-        layout:"EditorLayout"
+        layout:EditorLayout
       }
     },
     {
@@ -44,7 +48,7 @@ const router = createRouter({
       component:Login,
       meta:{
         hasAccess:false,
-        layout:"AuthLayout"
+        layout:AuthLayoutVue
       }
     },
     {
@@ -53,7 +57,16 @@ const router = createRouter({
       component:SignupVue,
       meta:{
         hasAccess:false,
-        layout:"AuthLayout"
+        layout:AuthLayoutVue
+      }
+    },
+    {
+      path:'/user/profile',
+      name:'Profile',
+      component:ProfileDetailsVue,
+      meta:{
+        hasAccess:false,
+        layout:EditorLayout
       }
     },
     {
@@ -62,7 +75,7 @@ const router = createRouter({
       component:InteractiveElement,
       meta:{
         hasAccess:false,
-        layout:"AuthLayout"
+        layout:AuthLayoutVue
       }
     },
   ]

@@ -23,3 +23,8 @@ export interface DevInput {
 export interface DevSelect {
   options: string[];
 }
+
+export interface Tags {
+  text: string;
+  icon:string;
+}
