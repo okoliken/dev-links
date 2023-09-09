@@ -15,7 +15,8 @@ module.exports = {
         brandDark:'#1A1A1A',
         brandRed:'#EE3939',
         brandBlue:'#2D68FF',
-        brandSoftRed:'#FF3939'
+        brandSoftRed:'#FF3939',
+        brandBorder:'#D9D9D9'
       },
       boxShadow: {
         'brandShadowDark': '0px 0px 32px 0px rgba(99, 60, 255, 0.25)',

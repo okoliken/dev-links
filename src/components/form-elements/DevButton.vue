@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type DevButton } from './types'
 import { computed } from 'vue'
-const { disabled, type = 'filled', isLoading, width } = defineProps<DevButton>()
+const { disabled, type = 'filled', isLoading, width = 'none' } = defineProps<DevButton>()
 
 const filed =
   'transition-all active:duration-50 duration-50 ease-linear  active:scale-95 active:bg-[#BEADFF] disabled:opacity-[0.25] disabled:cursor-not-allowed hover:bg-[#BEADFF] hover:shadow-brandShadowDark'
@@ -23,6 +23,7 @@ const _loaderColor = computed(() => {
   <button
     :disabled="disabled || isLoading"
     :class="_buttonType"
+    v-bind="$attrs"
     class="py-[11px] px-[27px] rounded-[8px] text-[16px] flex items-center justify-center flex-col"
   >
     <p v-if="isLoading" :class="_loaderColor" class="loader inline-block"></p>
