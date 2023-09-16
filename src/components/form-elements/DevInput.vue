@@ -25,7 +25,7 @@ const { name = 'text', type = 'text', icon, placeholder } = defineProps<DevInput
         :placeholder="placeholder"
       />
     </Field>
-    <ErrorMessage class="absolute right-4 top-4 text-brandRed text-[12px]" :name="name" />
+    <ErrorMessage class="absolute right-4 top-4 text-brandRed text-[12px] animate__animated animate__wobble" :name="name" />
   </div>
 </template>
 

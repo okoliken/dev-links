@@ -19,7 +19,7 @@ router.afterEach(()=> {
 
 
 onMounted(() => {
-  document.documentElement.style.setProperty('--animate-duration', '.5s')
+  document.documentElement.style.setProperty('--animate-duration', '.67s')
 })
 </script>
 

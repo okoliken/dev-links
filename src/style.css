@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 
+html {
+  scroll-behavior: smooth !important;
+}
 
 body{
     font-family: 'Instrument Sans', sans-serif !important; 

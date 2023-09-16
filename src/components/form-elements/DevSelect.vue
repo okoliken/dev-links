@@ -17,7 +17,7 @@ const selectOption = (option: string) => {
 </script>
 
 <template>
-  <div>
+  <div class="relative">
     <div
       class="py-[12px] px-[16px] border transition-all active:duration-50 duration-50 ease-linear border-[#D9D9D9] rounded-[8px] cursor-pointer flex items-center justify-between bg-white"
       tabindex="1"
@@ -30,22 +30,30 @@ const selectOption = (option: string) => {
       </div>
       <dropdownIcon class="transform transition-all" :class="[open ? ' rotate-180' : '']" />
     </div>
-    <div
-      class="py-[18x] px-[16px] shadow-optionShadow mt-4 border border-[D9D9D9] rounded-[8px] animate__animated animate__fadeInDown"
-      v-show="open"
+
+    <Transition
+      name="custom-classes"
+      enter-active-class="animate__animated animate__fadeInDown"
+      leave-active-class="animate__animated animate__fadeOutUp"
     >
       <div
-        :class="{
-          'border-b border-[#D9D9D9]': options?.length - 1 !== i,
-          'text-brandPurple': selected === option
-        }"
-        class="text-[16px] p-2 text-[#333] cursor-pointer hover:text-brandPurple"
-        v-for="(option, i) of options"
-        :key="i"
-        @mousedown="selectOption(option)"
+        class="py-[18x] px-[16px] shadow-optionShadow mt-4 border border-[D9D9D9] rounded-[8px] absolute z-50 w-full bg-white"
+        v-show="open"
       >
-        {{ option }} <span v-if="selected === option" class="text-brandPurple ml-px">(Selected)</span>
+        <div
+          :class="{
+            'border-b border-[#D9D9D9]': options?.length - 1 !== i,
+            'text-brandPurple': selected === option
+          }"
+          class="text-[16px] p-2 text-[#333] cursor-pointer hover:text-brandPurple w-full bg-white"
+          v-for="(option, i) of options"
+          :key="i"
+          @mousedown="selectOption(option)"
+        >
+          {{ option }}
+          <span v-if="selected === option" class="text-brandPurple ml-px">(Selected)</span>
+        </div>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
