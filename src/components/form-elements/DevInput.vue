@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { Field, ErrorMessage } from 'vee-validate'
 import { type DevInput } from './types'
+import { computed } from 'vue'
+
+const paddingLeft = computed(() => {
+  return icon !== '' ? 'pl-[40px] pr-[16px]' : 'pl-[20px] pr-[16px]'
+})
 
 const { name = 'text', type = 'text', icon, placeholder } = defineProps<DevInput>()
 </script>
@@ -8,24 +13,33 @@ const { name = 'text', type = 'text', icon, placeholder } = defineProps<DevInput
 <template>
   <div class="relative">
     <i
+      v-if="icon"
       :class="icon"
       class="absolute left-4 transform translate-y-[0.843rem] text-[16px] text-brandSoftGrey"
     ></i>
     <Field :name="name" v-slot="{ field, meta, errorMessage }" placeholder="e.g. alex@email.com">
       <input
-        class="py-[12px] pl-[40px] pr-[16px] rounded-[8px] border border-[#D9D9D9] outline-none appearance-none focus-within:border-brandPurple focus-within:shadow-brandShadowDark transition-all active:duration-50 duration-50 ease-linear caret-brandPurple placeholder:text-[16px] w-full"
+        class="py-[12px] rounded-[8px] border border-[#D9D9D9] outline-none appearance-none 
+        focus-within:border-brandPurple focus-within:shadow-brandShadowDark transition-all active:duration-50 duration-50 
+        ease-linear caret-brandPurple placeholder:text-[16px] !w-full"
         v-bind="field"
         :class="[
           !meta.valid && errorMessage
             ? 'border-brandSoftRed focus-within:border-brandSoftRed focus-within:shadow-none transition-all active:duration-50 duration-50 ease-linear'
-            : null
+            : null,
+          paddingLeft
         ]"
-        name="name"
+       
+        :name="name"
         :type="type"
+        autocomplete="off"
         :placeholder="placeholder"
       />
     </Field>
-    <ErrorMessage class="absolute right-4 top-4 text-brandRed text-[12px] animate__animated animate__wobble" :name="name" />
+    <ErrorMessage
+      class="absolute right-4 top-4 text-brandRed text-[12px] animate__animated animate__wobble"
+      :name="name"
+    />
   </div>
 </template>
 

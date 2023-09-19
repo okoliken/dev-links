@@ -52,5 +52,5 @@ async function optimizeImage(inputPath: string, outputPath: string) {
   }
 }
 
-// Call the optimizeImage function
-optimizeImage(inputFilePath, outputFilePath);
+
+export default optimizeImage

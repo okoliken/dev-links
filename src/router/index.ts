@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // @ts-ignore
-import Editor from '@/views/Editor.vue'
+import DevEditor from '@/views/DevEditor.vue'
 // @ts-ignore
 import Login from '@/views/auth/Login.vue'
 import SignupVue from '@/views/auth/Signup.vue'
@@ -16,7 +16,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Editor',
-      component: Editor,
+      component: DevEditor,
       meta:{
         hasAccess:true,
          layout:EditorLayout
