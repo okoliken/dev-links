@@ -22,6 +22,32 @@ const scrollTo = () => {
 }
 onUpdated(() => scrollTo())
 // end
+const selectOptions = ref<{icon:string, title:string}[]>([
+  {
+    icon:'ri-github-fill',
+    title:'GitHub'
+  },
+  {
+    icon:'ri-youtube-fill',
+    title:'YouTube'
+  },
+  {
+    icon:'ri-linkedin-box-fill',
+    title:'LinkedIn'
+  },
+  {
+    icon:'ri-facebook-circle-fill',
+    title:'FaceBook'
+  },
+  {
+    icon:'ri-instagram-line',
+    title:'Instagram'
+  },
+  {
+    icon:'ri-discord-fill',
+    title:'Discord'
+  },
+])
 </script>
 
 <template>
@@ -47,8 +73,8 @@ onUpdated(() => scrollTo())
       >
         <Form>
           <div class="my-3">
-            <label class="text-brandDarkGrey text-[12px]">Platform</label>
-            <DevSelect :options="['Go', 'TypeScript', 'Css', 'Svelte']" />
+            <label class="text-brandDarkGrey text-[13px]">Platform</label>
+            <DevSelect :options="selectOptions" />
           </div>
           <div class="my-3">
             <label class="text-brandDarkGrey text-[12px]">Link</label>

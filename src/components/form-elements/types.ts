@@ -2,7 +2,10 @@
 
 // Button type
 export type buttonType = 'filled' | 'outlined';
-
+export interface SelectOptions  {
+  icon:string,
+  title:string,
+}
 export interface DevButton {
   disabled?: boolean | any;
   type: buttonType;
@@ -21,7 +24,7 @@ export interface DevInput {
 }
 
 export interface DevSelect {
-  options: string[];
+  options: SelectOptions[] | [];
 }
 
 export interface Tags {

@@ -3,7 +3,8 @@ import DevNavigator from '../components/DevNavigator.vue'
 import FrameOne from '../components/FrameOne.vue'
 import FrameTwo from '../components/FrameTwo.vue'
 import DevButton from '../components/form-elements/DevButton.vue';
-
+import DevToast from '../components/dev-toast.vue'
+import { isOpen } from '../useToast'
 import ProfileFrame from '../components/ProfileFrame.vue'
 </script>
 

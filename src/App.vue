@@ -2,21 +2,19 @@
 import { RouterView, useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import RootLayout from './layouts/RootLayout.vue'
-import {ProgressFinisher, useProgress} from '@marcoschulte/vue3-progress';
-import DevToast from './components/dev-toast.vue'
-const progresses = [] as ProgressFinisher[];
+import { ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress'
+const progresses = [] as ProgressFinisher[]
 const router = useRouter()
 
 router.beforeEach((to, from, next) => {
-  progresses.push(useProgress().start());
+  progresses.push(useProgress().start())
 
   next()
 })
 
-router.afterEach(()=> {
-  progresses.pop()?.finish();
+router.afterEach(() => {
+  progresses.pop()?.finish()
 })
-
 
 onMounted(() => {
   document.documentElement.style.setProperty('--animate-duration', '.67s')
@@ -27,9 +25,6 @@ onMounted(() => {
   <vue3-progress-bar></vue3-progress-bar>
   <RootLayout>
     <RouterView />
-   
   </RootLayout>
-  <DevToast />
 </template>
-
 

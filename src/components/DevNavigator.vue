@@ -2,14 +2,10 @@
 
 
 <script setup lang="ts">
-import {onMounted} from 'vue'
 import DevButton from './form-elements/DevButton.vue';
 import Tags from '../components/Tags.vue'
+import { showToast } from '../useToast'
 
-
-onMounted(() => {
-  console.log('hello')
-})
 </script>
 
 
@@ -26,7 +22,7 @@ onMounted(() => {
           <Tags icon="ri-user-line" text="Profile Details" />
         </RouterLink>
       </div>
-      <DevButton type="outlined">Preview</DevButton>
+      <DevButton @click="showToast(6000, true)" type="outlined">Preview</DevButton>
     </div>
   </div>
 </template>

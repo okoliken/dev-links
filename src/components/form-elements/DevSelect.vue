@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DevSelect } from './types'
+import { DevSelect, SelectOptions } from './types'
 import dropdownIcon from '../icons/dropdown-icon.vue'
 import { ref } from 'vue'
 const open = ref(false)
@@ -7,9 +7,9 @@ const open = ref(false)
 const emptyText = 'e.g. https://www.github.com/johnappleseed'
 const { options = [] } = defineProps<DevSelect>()
 const emit = defineEmits(['selected'])
-const selected = ref(options.length > 0 ? options[0] : emptyText)
+const selected = ref<SelectOptions | any>(options.length > 0 ? options[0] : emptyText)
 
-const selectOption = (option: string) => {
+const selectOption = (option: SelectOptions) => {
   selected.value = option
   open.value = false
   emit('selected', option)
@@ -25,8 +25,9 @@ const selectOption = (option: string) => {
       @click="open = !open"
       @blur="open = false"
     >
-      <div class="text-[#333] text-[16px] leading-[150%]">
-        {{ selected }}
+      <div class="text-[#333] text-[16px] leading-[150%] flex items-center gap-x-3">
+        <i class="text-[17px]" :class="selected.icon"></i>
+        <span> {{ selected.title }}</span>
       </div>
       <dropdownIcon class="transform transition-all" :class="[open ? ' rotate-180' : '']" />
     </div>
@@ -45,13 +46,16 @@ const selectOption = (option: string) => {
             'border-b border-[#D9D9D9]': options?.length - 1 !== i,
             'text-brandPurple': selected === option
           }"
-          class="text-[16px] p-2 text-[#333] cursor-pointer hover:text-brandPurple w-full bg-white"
+          class="text-[16px] p-3 text-[#333] cursor-pointer hover:text-brandPurple w-full bg-white flex items-center gap-x-3"
           v-for="(option, i) of options"
           :key="i"
           @mousedown="selectOption(option)"
         >
-          {{ option }}
-          <span v-if="selected === option" class="text-brandPurple ml-px">(Selected)</span>
+          <div class="flex items-center gap-x-3">
+            <i class="text-[17px]" :class="option.icon"></i>
+            <span>{{ option.title }}</span>
+          </div>
+          <!-- <span v-if="selected === option" class="text-brandPurple ml-px text-base">(Selected)</span> -->
         </div>
       </div>
     </Transition>
