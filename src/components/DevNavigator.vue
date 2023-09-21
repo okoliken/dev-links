@@ -4,8 +4,6 @@
 <script setup lang="ts">
 import DevButton from './form-elements/DevButton.vue';
 import Tags from '../components/Tags.vue'
-import { showToast } from '../useToast'
-
 </script>
 
 
@@ -22,7 +20,7 @@ import { showToast } from '../useToast'
           <Tags icon="ri-user-line" text="Profile Details" />
         </RouterLink>
       </div>
-      <DevButton @click="showToast(6000, true)" type="outlined">Preview</DevButton>
+      <DevButton @click="$router.push('/preview')" type="outlined">Preview</DevButton>
     </div>
   </div>
 </template>

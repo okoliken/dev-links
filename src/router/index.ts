@@ -9,7 +9,8 @@ import InteractiveElement from '@/views/elements.vue'
 import ProfileDetailsVue from '../views/ProfileDetails.vue'
 import EditorLayout from '../layouts/EditorLayout.vue'
 import AuthLayoutVue from '@/layouts/AuthLayout.vue'
-
+// @ts-ignore
+import PreviewLayout from '../layouts/PreviewLayout.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -36,10 +37,10 @@ const router = createRouter({
       path: '/preview',
       name: 'Preview Page',
       // @ts-ignore
-      component: () => import('../views/Preview.vue'),
+      component: () => import('../views/DevPreview.vue'),
       meta:{
         hasAccess:true,
-        layout:EditorLayout
+        layout:PreviewLayout
       }
     },
     {
