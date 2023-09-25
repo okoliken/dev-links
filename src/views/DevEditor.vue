@@ -3,7 +3,7 @@ import DevButton from '../components/form-elements/DevButton.vue'
 import { ref, onUpdated } from 'vue'
 // @ts-ignore
 import emptyState from '../components/empty-state.vue'
-import CreateLink from '../components/create-link/container.vue'
+import CreateLink from '../components/create-link/CreateLink.vue'
 import { Form } from 'vee-validate'
 import DevInput from '../components/form-elements/DevInput.vue'
 import DevSelect from '../components/form-elements/DevSelect.vue'
@@ -22,30 +22,36 @@ const scrollTo = () => {
 }
 onUpdated(() => scrollTo())
 // end
-const selectOptions = ref<{icon:string, title:string}[]>([
+const selectOptions = ref<{icon:string, title:string, color:string}[]>([
   {
     icon:'ri-github-fill',
-    title:'GitHub'
+    title:'GitHub',
+    color:'#1A1A1A'
   },
   {
     icon:'ri-youtube-fill',
-    title:'YouTube'
+    title:'YouTube',
+    color:'#EE3939'
   },
   {
     icon:'ri-linkedin-box-fill',
-    title:'LinkedIn'
+    title:'LinkedIn',
+    color:'#2D68FF'
   },
   {
     icon:'ri-facebook-circle-fill',
-    title:'FaceBook'
+    title:'FaceBook',
+    color:'#1A1A1A'
   },
   {
     icon:'ri-instagram-line',
-    title:'Instagram'
+    title:'Instagram',
+    color:'#1A1A1A'
   },
   {
     icon:'ri-discord-fill',
-    title:'Discord'
+    title:'Discord',
+    color:'#34495E'
   },
 ])
 </script>
@@ -53,7 +59,7 @@ const selectOptions = ref<{icon:string, title:string}[]>([
 <template>
   <main>
     <div>
-      <h1 class="text-[32px] font-bold leading-[150%]">Customize your links</h1>
+      <h1 class="text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2 md:mb-0">Customize your links</h1>
       <p class="text-brandSoftGrey text-[16px] font-light leading-[150%]">
         Add/edit/remove links below and then share all your profiles with the world!
       </p>
@@ -88,7 +94,5 @@ const selectOptions = ref<{icon:string, title:string}[]>([
         </Form>
       </CreateLink>
     </section>
-
-    <!--   -->
   </main>
 </template>

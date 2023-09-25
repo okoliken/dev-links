@@ -19,7 +19,7 @@ export interface DevButton {
 export interface DevInput {
     name:string;
     type:string;
-    icon:string;
+    icon?:string;
     placeholder:string
 }
 

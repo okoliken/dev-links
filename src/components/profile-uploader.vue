@@ -3,7 +3,7 @@
     @click="openFile"
     class="img-uploader bg-brandLightPurple cursor-pointer hover:bg-opacity-70"
   >
-    <div  class="flex items-center justify-center flex-col">
+    <div class="flex items-center justify-center flex-col">
       <i class="ri-image-2-line text-[35px] text-brandPurple"></i>
       <p class="font-medium text-brandPurple">+ Upload Image</p>
     </div>

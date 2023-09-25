@@ -9,9 +9,9 @@ const formSchema = toTypedSchema(loginSchema)
 </script>
 
 <template>
-  <div class="bg-white p-[40px] w-full max-w-[30rem] rounded-[8px]">
+  <div class="bg-white p-[40px] w-full max-w-[30rem] rounded-[8px] md:mb-6">
     <div>
-      <h1 class="text-brandDarkGrey text-[32px] font-bold leading-[150%] mb-2">Login</h1>
+      <h1 class="text-brandDarkGrey text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2">Login</h1>
       <p class="text-brandSoftGrey text-[16px] !font-light leading-[150%]">
         Add your details below to get back into the app
       </p>
@@ -53,7 +53,7 @@ const formSchema = toTypedSchema(loginSchema)
           Login
         </DevButton>
 
-        <p class="mt-5 mb-7 text-center text-brandSoftGrey font-light">
+        <p class="mt-5 mb-7 text-center text-[16px] text-brandSoftGrey font-light">
           Don’t have an account?
           <span class="text-brandPurple hover:underline">
             <br class="block lg:hidden" />

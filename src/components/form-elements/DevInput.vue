@@ -7,7 +7,7 @@ const paddingLeft = computed(() => {
   return icon !== '' ? 'pl-[40px] pr-[16px]' : 'pl-[20px] pr-[16px]'
 })
 
-const { name = 'text', type = 'text', icon, placeholder } = defineProps<DevInput>()
+const { name = 'text', type = 'text', icon = "", placeholder } = defineProps<DevInput>()
 </script>
 
 <template>
@@ -19,9 +19,7 @@ const { name = 'text', type = 'text', icon, placeholder } = defineProps<DevInput
     ></i>
     <Field :name="name" v-slot="{ field, meta, errorMessage }" placeholder="e.g. alex@email.com">
       <input
-        class="py-[12px] rounded-[8px] border border-[#D9D9D9] outline-none appearance-none 
-        focus-within:border-brandPurple focus-within:shadow-brandShadowDark transition-all active:duration-50 duration-50 
-        ease-linear caret-brandPurple placeholder:text-[16px] !w-full"
+        class="py-[12px] rounded-[8px] border border-[#D9D9D9] outline-none appearance-none focus-within:border-brandPurple focus-within:shadow-brandShadowDark transition-all active:duration-50 duration-50 ease-linear caret-brandPurple placeholder:text-[16px] !w-full"
         v-bind="field"
         :class="[
           !meta.valid && errorMessage
@@ -29,7 +27,6 @@ const { name = 'text', type = 'text', icon, placeholder } = defineProps<DevInput
             : null,
           paddingLeft
         ]"
-       
         :name="name"
         :type="type"
         autocomplete="off"

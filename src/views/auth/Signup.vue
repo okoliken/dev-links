@@ -9,9 +9,9 @@ const formSchema = toTypedSchema(signUpSchema)
 </script>
 
 <template>
-  <div class="bg-white p-[40px] w-full max-w-[30rem] rounded-[8px]">
+  <div class="bg-white p-[40px] w-full max-w-[30rem] rounded-[8px] md:mb-6">
     <div>
-      <h1 class="text-brandDarkGrey text-[32px] font-bold leading-[150%] mb-2">Create account</h1>
+      <h1 class="text-brandDarkGrey text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2">Create account</h1>
       <p class="text-brandSoftGrey text-[16px] !font-light leading-[150%]">
         Let’s get you started sharing your links!
       </p>

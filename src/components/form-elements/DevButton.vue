@@ -24,9 +24,9 @@ const _loaderColor = computed(() => {
     :disabled="disabled || isLoading"
     :class="_buttonType"
     v-bind="$attrs"
-    class="py-[11px] px-[27px] rounded-[8px] text-[16px] flex items-center justify-center flex-col"
+    class="py-[11px] px-[16px] md:px-[27px] rounded-[8px] text-[16px] flex items-center justify-center flex-col"
   >
-    <p v-if="isLoading" :class="_loaderColor" class="loader inline-block"></p>
+    <p v-if="isLoading" :class="_loaderColor" class="loader inline-block text-[16px]"></p>
     <slot v-else></slot>
   </button>
 </template>

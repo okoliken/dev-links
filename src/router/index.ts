@@ -4,8 +4,7 @@ import DevEditor from '@/views/DevEditor.vue'
 // @ts-ignore
 import Login from '@/views/auth/Login.vue'
 import SignupVue from '@/views/auth/Signup.vue'
-// @ts-ignore
-import InteractiveElement from '@/views/elements.vue'
+
 import ProfileDetailsVue from '../views/ProfileDetails.vue'
 import EditorLayout from '../layouts/EditorLayout.vue'
 import AuthLayoutVue from '@/layouts/AuthLayout.vue'
@@ -70,15 +69,7 @@ const router = createRouter({
         layout:EditorLayout
       }
     },
-    {
-      path:'/elements',
-      name:'Interactive Element',
-      component:InteractiveElement,
-      meta:{
-        hasAccess:false,
-        layout:AuthLayoutVue
-      }
-    },
+    
   ]
 })
 

@@ -25,9 +25,9 @@ const selectOption = (option: SelectOptions) => {
       @click="open = !open"
       @blur="open = false"
     >
-      <div class="text-[#333] text-[16px] leading-[150%] flex items-center gap-x-3">
-        <i class="text-[17px]" :class="selected.icon"></i>
-        <span> {{ selected.title }}</span>
+      <div class=" text-[16px] leading-[150%] flex items-center gap-x-3">
+        <i class="text-[17px] text-[#737373]" :class="selected.icon"></i>
+        <span class="text-[#737373]"> {{ selected.title }}</span>
       </div>
       <dropdownIcon class="transform transition-all" :class="[open ? ' rotate-180' : '']" />
     </div>
@@ -35,7 +35,8 @@ const selectOption = (option: SelectOptions) => {
     <Transition
       name="custom-classes"
       enter-active-class="animate__animated animate__fadeInDown"
-      leave-active-class="animate__animated animate__fadeOutUp"
+      leave-active-class="animate__animated animate__fadeOut"
+      mode="in-out"
     >
       <div
         class="py-[18x] px-[16px] shadow-optionShadow mt-4 border border-[D9D9D9] rounded-[8px] absolute z-50 w-full bg-white"
@@ -46,13 +47,13 @@ const selectOption = (option: SelectOptions) => {
             'border-b border-[#D9D9D9]': options?.length - 1 !== i,
             'text-brandPurple': selected === option
           }"
-          class="text-[16px] p-3 text-[#333] cursor-pointer hover:text-brandPurple w-full bg-white flex items-center gap-x-3"
+          class="text-[16px] p-3 text-[#737373] cursor-pointer hover:text-brandPurple w-full bg-white flex items-center gap-x-3"
           v-for="(option, i) of options"
           :key="i"
           @mousedown="selectOption(option)"
         >
           <div class="flex items-center gap-x-3">
-            <i class="text-[17px]" :class="option.icon"></i>
+            <i class="text-[17px] text-[#737373]" :class="option.icon"></i>
             <span>{{ option.title }}</span>
           </div>
           <!-- <span v-if="selected === option" class="text-brandPurple ml-px text-base">(Selected)</span> -->

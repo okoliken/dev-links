@@ -8,14 +8,14 @@ import ProfileFrame from '../components/ProfileFrame.vue'
 
 <template>
   <div class="bg-brandGrey min-h-screen">
-    <div class="w-full p-4">
+    <div class="w-full mb-4 sm:mb-0 md:p-4">
       <DevNavigator />
     </div>
 
     <div class="flex items-center justify-center flex-col px-4">
-      <div class="grid grid-cols-12 w-full gap-x-4 mb-4">
+      <div class="grid grid-cols-12 w-full lg:gap-x-4 mb-4">
         <div
-          class="col-span-5 w-full bg-white rounded-[12px] p-[40px] flex align-center justify-center"
+          class="col-span-12 hidden  md:col-span-5 w-full bg-white rounded-[12px] p-[40px] lg:flex align-center justify-center"
         >
           <div class="relative h-full flex items-center justify-center flex-col">
             <FrameOne class="relative" />
@@ -24,15 +24,15 @@ import ProfileFrame from '../components/ProfileFrame.vue'
           </div>
         </div>
 
-        <div class="col-span-7 w-full bg-white rounded-[12px] relative">
-          <div class="p-[40px]">
+        <div class="col-span-12 md:col-span-12 lg:col-span-7 w-full bg-white rounded-[12px] relative">
+          <div class="p-[24px] md:p-[40px]">
             <slot></slot>
           </div>
 
           <div
-            class="p-[25px] flex items-end justify-end border-t border-brandBorder absolute w-full bottom-0 bg-white"
+            class="p-[16px] md:p-[25px] flex items-end justify-end border-t border-brandBorder absolute w-full bottom-0 bg-white"
           >
-            <DevButton class="mr-4" :disabled="true" type="filled">Save</DevButton>
+            <DevButton class="md:mr-4 w-full  md:w-auto"  type="filled">Save</DevButton>
           </div>
         </div>
       </div>
