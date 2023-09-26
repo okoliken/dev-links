@@ -7,6 +7,19 @@ import CreateLink from '../components/create-link/CreateLink.vue'
 import { Form } from 'vee-validate'
 import DevInput from '../components/form-elements/DevInput.vue'
 import DevSelect from '../components/form-elements/DevSelect.vue'
+import { VueDraggableNext as draggable } from 'vue-draggable-next'
+
+// dragging elements
+interface MovedObject {
+  moved: {
+    element: {
+      title: string
+      link: string
+    }
+    oldIndex: number
+    newIndex: number
+  }
+}
 
 const formField = {
   title: '',
@@ -14,6 +27,22 @@ const formField = {
 }
 
 const createLink = ref([])
+const dragging = ref(false)
+
+const log = (event: MovedObject) => {
+  
+  const oldIndex = event.moved.oldIndex
+  const newIndex = event.moved.newIndex
+
+  // Remove the element from the old position
+  const removedElement = createLink.value.splice(oldIndex, 1)[0];
+  console.log( removedElement)
+
+  // Insert the element at the new position
+  console.log(createLink.value.splice(newIndex, 0, removedElement))
+}
+
+//
 
 // scroll to bottom on update
 const scrollTo = () => {
@@ -22,44 +51,47 @@ const scrollTo = () => {
 }
 onUpdated(() => scrollTo())
 // end
-const selectOptions = ref<{icon:string, title:string, color:string}[]>([
+
+const selectOptions = ref<{ icon: string; title: string; color: string }[]>([
   {
-    icon:'ri-github-fill',
-    title:'GitHub',
-    color:'#1A1A1A'
+    icon: 'ri-github-fill',
+    title: 'GitHub',
+    color: '#1A1A1A'
   },
   {
-    icon:'ri-youtube-fill',
-    title:'YouTube',
-    color:'#EE3939'
+    icon: 'ri-youtube-fill',
+    title: 'YouTube',
+    color: '#EE3939'
   },
   {
-    icon:'ri-linkedin-box-fill',
-    title:'LinkedIn',
-    color:'#2D68FF'
+    icon: 'ri-linkedin-box-fill',
+    title: 'LinkedIn',
+    color: '#2D68FF'
   },
   {
-    icon:'ri-facebook-circle-fill',
-    title:'FaceBook',
-    color:'#1A1A1A'
+    icon: 'ri-facebook-circle-fill',
+    title: 'FaceBook',
+    color: '#1A1A1A'
   },
   {
-    icon:'ri-instagram-line',
-    title:'Instagram',
-    color:'#1A1A1A'
+    icon: 'ri-instagram-line',
+    title: 'Instagram',
+    color: '#1A1A1A'
   },
   {
-    icon:'ri-discord-fill',
-    title:'Discord',
-    color:'#34495E'
-  },
+    icon: 'ri-discord-fill',
+    title: 'Discord',
+    color: '#34495E'
+  }
 ])
 </script>
 
 <template>
   <main>
     <div>
-      <h1 class="text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2 md:mb-0">Customize your links</h1>
+      <h1 class="text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2 md:mb-0">
+        Customize your links
+      </h1>
       <p class="text-brandSoftGrey text-[16px] font-light leading-[150%]">
         Add/edit/remove links below and then share all your profiles with the world!
       </p>
@@ -68,31 +100,38 @@ const selectOptions = ref<{icon:string, title:string, color:string}[]>([
       >+ Add new link
     </DevButton>
 
-    <section id="linkContainer" class="h-[70vh] overflow-hidden overflow-y-scroll mb-24">
+    <div id="linkContainer" class="h-[70vh] overflow-hidden overflow-y-scroll mb-24">
       <emptyState v-if="createLink.length <= 0" />
-      <CreateLink
-        @remove="createLink.shift()"
-        :index="index"
+      <draggable
         v-else
-        :key="index"
-        v-for="(values, index) in createLink"
+        class="list-group"
+        @change="log"
+        v-model="createLink"
       >
-        <Form>
-          <div class="my-3">
-            <label class="text-brandDarkGrey text-[13px]">Platform</label>
-            <DevSelect :options="selectOptions" />
-          </div>
-          <div class="my-3">
-            <label class="text-brandDarkGrey text-[12px]">Link</label>
-            <DevInput
-              name="link"
-              type="text"
-              placeholder="e.g. https://www.github.com/johnappleseed"
-              icon="ri-links-fill"
-            />
-          </div>
-        </Form>
-      </CreateLink>
-    </section>
+        <CreateLink
+          @remove="createLink.shift()"
+          :index="index"
+          class="list-group-item"
+          :key="index"
+          v-for="(values, index) in createLink"
+        >
+          <Form>
+            <div class="my-3">
+              <label class="text-brandDarkGrey text-[13px]">Platform</label>
+              <DevSelect :options="selectOptions" />
+            </div>
+            <div class="my-3">
+              <label class="text-brandDarkGrey text-[12px]">Link</label>
+              <DevInput
+                name="link"
+                type="text"
+                placeholder="e.g. https://www.github.com/johnappleseed"
+                icon="ri-links-fill"
+              />
+            </div>
+          </Form>
+        </CreateLink>
+      </draggable>
+    </div>
   </main>
 </template>

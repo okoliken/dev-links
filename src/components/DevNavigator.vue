@@ -24,6 +24,7 @@ import PreviewEye from './icons/PreviewEye.vue';
           <Tags icon="ri-user-line" text="Profile Details" />
         </RouterLink>
       </div>
+     
       <DevButton @click="$router.push('/preview')" type="outlined">
         <span class="hidden md:block">Preview</span>
         <PreviewEye class="block md:hidden" />

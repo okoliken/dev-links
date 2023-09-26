@@ -52,8 +52,8 @@ const selectOption = (option: SelectOptions) => {
           :key="i"
           @mousedown="selectOption(option)"
         >
-          <div class="flex items-center gap-x-3">
-            <i class="text-[17px] text-[#737373]" :class="option.icon"></i>
+          <div class="flex items-center gap-x-3 elements">
+            <i class="text-[17px] text-[#737373]" :class="[option.icon, selected === option? 'text-brandPurple': null]"></i>
             <span>{{ option.title }}</span>
           </div>
           <!-- <span v-if="selected === option" class="text-brandPurple ml-px text-base">(Selected)</span> -->
@@ -62,3 +62,9 @@ const selectOption = (option: SelectOptions) => {
     </Transition>
   </div>
 </template>
+
+<style scoped>
+.elements:hover i,p{
+  color:#633CFF;
+}
+</style>

@@ -4,7 +4,15 @@ import DevButton from '../../components/form-elements/DevButton.vue'
 import { Form } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { loginSchema } from '../../formSchema'
+import { useAuthorize } from '../../reusables/auth'
 
+
+const {loading, login} = useAuthorize()
+
+async function onSubmit(values:{email:string, password:string}) {
+  // Submit values to API...
+  await login(values?.email, values?.password);
+}
 const formSchema = toTypedSchema(loginSchema)
 </script>
 
@@ -16,7 +24,7 @@ const formSchema = toTypedSchema(loginSchema)
         Add your details below to get back into the app
       </p>
 
-      <Form v-slot="{ errorBag, errors }" class="mt-7" :validation-schema="formSchema">
+      <Form @submit="onSubmit" v-slot="{ errorBag, errors }" class="mt-7" :validation-schema="formSchema">
         <div class="mt-5">
           <label
             :class="[errorBag?.email?.length ? 'text-brandSoftRed' : null]"
@@ -46,7 +54,7 @@ const formSchema = toTypedSchema(loginSchema)
         </div>
         <DevButton
           :disabled="Object.keys(errors).length"
-          :is-loading="false"
+          :is-loading="loading"
           type="filled"
           class="w-full my-8"
         >

@@ -15,10 +15,13 @@
     "@marcoschulte/vue3-progress": "^0.0.7",
     "@vee-validate/zod": "^4.11.3",
     "animate.css": "^4.1.1",
+    "appwrite": "^13.0.0",
     "sharp": "^0.32.5",
     "vee-validate": "^4.11.3",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.4"
+    "vue-draggable-next": "^2.2.1",
+    "vue-router": "^4.2.4",
+    "vue3-toastify": "^0.1.13"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.2",

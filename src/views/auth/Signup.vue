@@ -1,22 +1,38 @@
 <script setup lang="ts">
 import DevInput from '../../components/form-elements/DevInput.vue'
 import DevButton from '../../components/form-elements/DevButton.vue'
+
 import { Form } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { signUpSchema } from '../../formSchema'
 
+import { useAuthorize } from '../../reusables/auth'
 const formSchema = toTypedSchema(signUpSchema)
+
+const {loading, register} = useAuthorize()
+
+async function onSubmit(values:{email:string, password:string}) {
+  // Submit values to API...
+  await register(values?.email, values?.password);
+}
 </script>
 
 <template>
   <div class="bg-white p-[40px] w-full max-w-[30rem] rounded-[8px] md:mb-6">
     <div>
-      <h1 class="text-brandDarkGrey text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2">Create account</h1>
+      <h1 class="text-brandDarkGrey text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2">
+        Create account
+      </h1>
       <p class="text-brandSoftGrey text-[16px] !font-light leading-[150%]">
         Let’s get you started sharing your links!
       </p>
 
-      <Form v-slot="{ errorBag, errors }" class="mt-7" :validation-schema="formSchema">
+      <Form
+        v-slot="{ errorBag, errors }"
+        class="mt-7"
+        :validation-schema="formSchema"
+        @submit="onSubmit"
+      >
         <div class="mt-5">
           <label
             :class="[errorBag?.email?.length ? 'text-brandSoftRed' : null]"
@@ -62,7 +78,7 @@ const formSchema = toTypedSchema(signUpSchema)
         </p>
         <DevButton
           :disabled="Object.keys(errors).length"
-          :is-loading="false"
+          :is-loading="loading"
           type="filled"
           class="w-full my-8"
         >
