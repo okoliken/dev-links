@@ -41,7 +41,8 @@ onMounted(() => emit('selected', selected.value))
       mode="in-out"
     >
       <div
-        class="py-[18x] px-[16px] shadow-optionShadow mt-4 border border-[D9D9D9] rounded-[8px] absolute z-50 w-full bg-white"
+        class="py-[18x] px-[16px] shadow-optionShadow mt-4 border border-[D9D9D9]
+         rounded-[8px] absolute z-50 w-full bg-white"
         v-show="open"
       >
         <div

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed} from 'vue'
+import { computed } from 'vue'
 interface Link {
   links: {
     title: string
@@ -11,22 +11,20 @@ interface Link {
 const { links } = defineProps<Link>()
 
 const bgColor = computed(() => {
-  return `bg-[${links.color}]`
+  return links.color
 })
 </script>
 
 <template>
-  <a :href="links.link" target="_blank">
-    <div
-     :class="bgColor"
-      class="p-[16px] bg-[#1A1A1A] w-full rounded-[8px] flex items-center justify-between mb-6"
-    >
+  <a :href="links.link || '#'" :target="links.link ? '_blank' : null">
+    <div :style="`background-color: ${bgColor}`"
+      class="p-[16px] w-full rounded-[8px] flex items-center justify-between mb-6">
       <div class="flex items-center">
         <!-- <i class="ri-github-line"></i> -->
         <p class="text-white text-[16px]">{{ links.title }}</p>
       </div>
 
-      <i class="ri-arrow-right-line text-white text-[16px]"></i>
+      <i class="ri-arrow-right-line text-white text-[16px] font-medium"></i>
     </div>
   </a>
 </template>

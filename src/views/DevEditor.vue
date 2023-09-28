@@ -56,6 +56,11 @@ onUpdated(() => scrollTo())
 // end
 
 const formSchema = toTypedSchema(validateUrl)
+
+
+const selectVal = (val:any) => {
+  console.log(val)
+}
 </script>
 
 <template>
@@ -85,13 +90,14 @@ const formSchema = toTypedSchema(validateUrl)
           <Form :validation-schema="formSchema">
             <div class="my-3">
               <label class="text-brandDarkGrey text-[13px]">Platform</label>
-              <DevSelect :options="selectOptions" />
+              <DevSelect @selected="(e)=> (values.color = e.color, values.title = e.title)" :options="selectOptions" />
             </div>
             <div class="my-3">
               <label class="text-brandDarkGrey text-[12px]">Link</label>
               <DevInput
                 name="url_link"
                 type="text"
+                @sendvalue="(e) => values.link = e"
                 placeholder="e.g. https://www.github.com/johnappleseed"
                 icon="ri-links-fill"
               />

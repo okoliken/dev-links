@@ -23,7 +23,7 @@ export const useLink = () => {
     {
       icon: 'ri-facebook-circle-fill',
       title: 'FaceBook',
-      color: '#1A1A1A'
+      color: '#2442AC'
     }
     // {
     //   icon: 'ri-instagram-line',
