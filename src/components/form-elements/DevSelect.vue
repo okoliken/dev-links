@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { DevSelect, SelectOptions } from './types'
 import dropdownIcon from '../icons/dropdown-icon.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 const open = ref(false)
 
 const emptyText = 'e.g. https://www.github.com/johnappleseed'
@@ -14,6 +14,8 @@ const selectOption = (option: SelectOptions) => {
   open.value = false
   emit('selected', option)
 }
+
+onMounted(() => emit('selected', selected.value))
 </script>
 
 <template>

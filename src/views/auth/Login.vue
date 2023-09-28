@@ -6,12 +6,11 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { loginSchema } from '../../formSchema'
 import { useAuthorize } from '../../reusables/auth'
 
+const { loading, login } = useAuthorize()
 
-const {loading, login} = useAuthorize()
-
-async function onSubmit(values:{email:string, password:string}) {
+async function onSubmit(values: { email: string; password: string }) {
   // Submit values to API...
-  await login(values?.email, values?.password);
+  await login(values?.email, values?.password)
 }
 const formSchema = toTypedSchema(loginSchema)
 </script>
@@ -19,12 +18,19 @@ const formSchema = toTypedSchema(loginSchema)
 <template>
   <div class="bg-white p-[40px] w-full max-w-[30rem] rounded-[8px] md:mb-6">
     <div>
-      <h1 class="text-brandDarkGrey text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2">Login</h1>
+      <h1 class="text-brandDarkGrey text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2">
+        Login
+      </h1>
       <p class="text-brandSoftGrey text-[16px] !font-light leading-[150%]">
         Add your details below to get back into the app
       </p>
 
-      <Form @submit="onSubmit" v-slot="{ errorBag, errors }" class="mt-7" :validation-schema="formSchema">
+      <Form
+        @submit="onSubmit"
+        v-slot="{ errorBag, errors }"
+        class="mt-7"
+        :validation-schema="formSchema"
+      >
         <div class="mt-5">
           <label
             :class="[errorBag?.email?.length ? 'text-brandSoftRed' : null]"

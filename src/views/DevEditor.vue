@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DevButton from '../components/form-elements/DevButton.vue'
-import { ref, onUpdated } from 'vue'
+import { onUpdated } from 'vue'
 // @ts-ignore
 import emptyState from '../components/empty-state.vue'
 import CreateLink from '../components/create-link/CreateLink.vue'
@@ -8,7 +8,11 @@ import { Form } from 'vee-validate'
 import DevInput from '../components/form-elements/DevInput.vue'
 import DevSelect from '../components/form-elements/DevSelect.vue'
 import { VueDraggableNext as draggable } from 'vue-draggable-next'
+import { validateUrl } from '../formSchema'
+import { toTypedSchema } from '@vee-validate/zod'
+import { useLink } from '../reusables/links'
 
+const { selectOptions, createLink } = useLink()
 // dragging elements
 interface MovedObject {
   moved: {
@@ -22,21 +26,20 @@ interface MovedObject {
 }
 
 const formField = {
-  title: '',
-  link: ''
+  title: 'Github',
+  link: '',
+  color:'#1A1A1A'
 }
 
-const createLink = ref([])
-const dragging = ref(false)
+
 
 const log = (event: MovedObject) => {
-  
   const oldIndex = event.moved.oldIndex
   const newIndex = event.moved.newIndex
 
   // Remove the element from the old position
-  const removedElement = createLink.value.splice(oldIndex, 1)[0];
-  console.log( removedElement)
+  const removedElement = createLink.value.splice(oldIndex, 1)[0]
+  console.log(removedElement)
 
   // Insert the element at the new position
   console.log(createLink.value.splice(newIndex, 0, removedElement))
@@ -52,38 +55,7 @@ const scrollTo = () => {
 onUpdated(() => scrollTo())
 // end
 
-const selectOptions = ref<{ icon: string; title: string; color: string }[]>([
-  {
-    icon: 'ri-github-fill',
-    title: 'GitHub',
-    color: '#1A1A1A'
-  },
-  {
-    icon: 'ri-youtube-fill',
-    title: 'YouTube',
-    color: '#EE3939'
-  },
-  {
-    icon: 'ri-linkedin-box-fill',
-    title: 'LinkedIn',
-    color: '#2D68FF'
-  },
-  {
-    icon: 'ri-facebook-circle-fill',
-    title: 'FaceBook',
-    color: '#1A1A1A'
-  },
-  {
-    icon: 'ri-instagram-line',
-    title: 'Instagram',
-    color: '#1A1A1A'
-  },
-  {
-    icon: 'ri-discord-fill',
-    title: 'Discord',
-    color: '#34495E'
-  }
-])
+const formSchema = toTypedSchema(validateUrl)
 </script>
 
 <template>
@@ -102,12 +74,7 @@ const selectOptions = ref<{ icon: string; title: string; color: string }[]>([
 
     <div id="linkContainer" class="h-[70vh] overflow-hidden overflow-y-scroll mb-24">
       <emptyState v-if="createLink.length <= 0" />
-      <draggable
-        v-else
-        class="list-group"
-        @change="log"
-        v-model="createLink"
-      >
+      <draggable v-else class="list-group" @change="log" v-model="createLink">
         <CreateLink
           @remove="createLink.shift()"
           :index="index"
@@ -115,7 +82,7 @@ const selectOptions = ref<{ icon: string; title: string; color: string }[]>([
           :key="index"
           v-for="(values, index) in createLink"
         >
-          <Form>
+          <Form :validation-schema="formSchema">
             <div class="my-3">
               <label class="text-brandDarkGrey text-[13px]">Platform</label>
               <DevSelect :options="selectOptions" />
@@ -123,7 +90,7 @@ const selectOptions = ref<{ icon: string; title: string; color: string }[]>([
             <div class="my-3">
               <label class="text-brandDarkGrey text-[12px]">Link</label>
               <DevInput
-                name="link"
+                name="url_link"
                 type="text"
                 placeholder="e.g. https://www.github.com/johnappleseed"
                 icon="ri-links-fill"

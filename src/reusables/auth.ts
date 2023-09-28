@@ -28,7 +28,7 @@ export const useAuthorize = () => {
     try {
       loading.value = true
       startRequestProgress()
-      await DevAuth.create(ID.unique(), email, password)
+      await DevAuth.create(`${ID.unique()}`, email, password)
       await login(email, password)
       loading.value = false
     } catch (Err: any) {

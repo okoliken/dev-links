@@ -7,7 +7,7 @@ const paddingLeft = computed(() => {
   return icon !== '' ? 'pl-[40px] pr-[16px]' : 'pl-[20px] pr-[16px]'
 })
 
-const { name = 'text', type = 'text', icon = "", placeholder } = defineProps<DevInput>()
+const { name = 'text', type = 'text', icon = "", placeholder, } = defineProps<DevInput>()
 </script>
 
 <template>
@@ -32,6 +32,7 @@ const { name = 'text', type = 'text', icon = "", placeholder } = defineProps<Dev
         autocomplete="off"
         :placeholder="placeholder"
       />
+
     </Field>
     <ErrorMessage
       class="absolute right-4 top-4 text-brandRed text-[12px] animate__animated animate__wobble"

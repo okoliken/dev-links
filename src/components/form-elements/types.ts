@@ -20,7 +20,8 @@ export interface DevInput {
     name:string;
     type:string;
     icon?:string;
-    placeholder:string
+    placeholder:string;
+    rules?:{url:string}
 }
 
 export interface DevSelect {

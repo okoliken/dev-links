@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import DevLinks from './DevLinks.vue';
+import  {useLink} from '../reusables/links'
+
+const { createLink } = useLink()
+</script>
 <template>
   <div class="flex items-center justify-center flex-col">
     <!-- profile -->
@@ -17,8 +23,9 @@
     <!-- end -->
 
     <!-- links -->
-    <div class="mt-12 w-[230px]">
-      <div v-for="i in 5" :key="i" class="bg-[#EEEEEE] rounded-[8px] h-[44px] w-full mb-4"></div>
+    <div class="mt-12 w-[230px] h-[300px] overflow-hidden overflow-y-scroll">
+       <DevLinks :links="links"  v-for="(links, index) in createLink" :key="index" />
+       <div v-for="i in 4" :key="i" class="bg-[#EEEEEE] rounded-[8px] h-[44px] w-full mb-4"></div>
     </div>
     <!-- end -->
   </div>
