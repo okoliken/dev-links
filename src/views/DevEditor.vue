@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DevButton from '../components/form-elements/DevButton.vue'
-import { onUpdated } from 'vue'
+import { onUpdated, ref } from 'vue'
 // @ts-ignore
 import emptyState from '../components/empty-state.vue'
 import CreateLink from '../components/create-link/CreateLink.vue'
@@ -58,9 +58,8 @@ onUpdated(() => scrollTo())
 const formSchema = toTypedSchema(validateUrl)
 
 
-const selectVal = (val:any) => {
-  console.log(val)
-}
+const selected = ref('GitHub')
+const color = ref('#1A1A1A')
 </script>
 
 <template>
@@ -73,13 +72,13 @@ const selectVal = (val:any) => {
         Add/edit/remove links below and then share all your profiles with the world!
       </p>
     </div>
-    <DevButton @click="createLink.push(formField)" type="outlined" class="w-full mt-10 font-bold"
+    <DevButton @click="createLink.push({ ...formField, title: selected, color: color })" type="outlined" class="w-full mt-10 font-bold"
       >+ Add new link
     </DevButton>
 
     <div id="linkContainer" class="h-[70vh] overflow-hidden overflow-y-scroll mb-24">
       <emptyState v-if="createLink.length <= 0" />
-      <draggable v-else class="list-group" @change="log" v-model="createLink">
+      <draggable v-else class="list-group" @change="log" >
         <CreateLink
           @remove="createLink.shift()"
           :index="index"
@@ -90,7 +89,7 @@ const selectVal = (val:any) => {
           <Form :validation-schema="formSchema">
             <div class="my-3">
               <label class="text-brandDarkGrey text-[13px]">Platform</label>
-              <DevSelect @selected="(e)=> (values.color = e.color, values.title = e.title)" :options="selectOptions" />
+              <DevSelect @selected="(e) => (values.title = e.title, values.color = e.color)" :options="selectOptions" />
             </div>
             <div class="my-3">
               <label class="text-brandDarkGrey text-[12px]">Link</label>

@@ -11,9 +11,13 @@ const selected = ref<SelectOptions | any>(options.length > 0 ? options[0] : empt
 
 const selectOption = (option: SelectOptions) => {
   selected.value = option
+
+  console.log(selected.value)
   open.value = false
-  emit('selected', option)
+  emit('selected', selected.value)
 }
+
+
 
 onMounted(() => emit('selected', selected.value))
 </script>

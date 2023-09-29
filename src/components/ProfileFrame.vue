@@ -1,8 +1,20 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import DevLinks from './DevLinks.vue';
-import  {useLink} from '../reusables/links'
+import { useLink } from '../reusables/links'
 
 const { createLink } = useLink()
+
+const elementLength = computed(() => {
+  if (createLink.value.length && createLink.value.length <= 5) {
+    return 5 - createLink.value.length
+  }
+  else if (createLink.value.length >= 5) {
+    return
+  }
+
+  else return 5
+})
 </script>
 <template>
   <div class="flex items-center justify-center flex-col">
@@ -24,8 +36,8 @@ const { createLink } = useLink()
 
     <!-- links -->
     <div class="mt-12 w-[230px] h-[300px] overflow-hidden overflow-y-scroll">
-       <DevLinks :links="links"  v-for="(links, index) in createLink" :key="index" />
-       <div v-for="i in 4" :key="i" class="bg-[#EEEEEE] rounded-[8px] h-[44px] w-full mb-4"></div>
+      <DevLinks :links="links" v-for="(links, index) in createLink" :key="index" />
+      <div v-for="i in elementLength" :key="i" class="bg-[#EEEEEE] rounded-[8px] h-[44px] w-full mb-4"></div>
     </div>
     <!-- end -->
   </div>
