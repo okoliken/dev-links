@@ -7,7 +7,7 @@ import emptyState from '../assets/empty-state.png'
     class="flex items-center justify-center bg-brandGrey w-full rounded-[12px] px-[20px] py-[40px] mt-7"
   >
     <div class="flex items-center justify-center flex-col">
-      <img class="w-[249.533px] h-[160px] my-5 object-cover" v-bind:src="emptyState" alt="empty state" />
+      <img class="w-[249.533px] h-[160px] my-5 object-contain" v-bind:src="emptyState" alt="empty state" />
 
       <h2 class="text-[24px] md:text-[32px] font-bold leading-[150%] text-brandDarkGrey text-center my-3">
         Let’s get you started

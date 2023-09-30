@@ -44,7 +44,7 @@ export const useAuthorize = () => {
       startRequestProgress()
       const { $id, providerUid } = await DevAuth.createEmailSession(email, password)
       loading.value = false
-      await endRequestProgress()
+      endRequestProgress()
       setUser({ $id, providerUid })
       roam('/')
     } catch (Err: any) {

@@ -73,4 +73,15 @@ const router = createRouter({
   ]
 })
 
+
+router.beforeEach((to,from,next) => {
+  if(to.matched.some((routes) => routes.meta.hasAccess)){
+      let user  = JSON.parse(String(sessionStorage.getItem('user')))
+      if(!user){
+        next('/auth/login')
+      }
+  }
+  next()
+})
+
 export default router
