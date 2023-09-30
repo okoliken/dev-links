@@ -19,7 +19,7 @@ const selectOption = (option: SelectOptions) => {
 
 
 
-onMounted(() => emit('selected', selected.value))
+// onMounted(() => emit('selected', selected.value))
 </script>
 
 <template>
@@ -46,7 +46,7 @@ onMounted(() => emit('selected', selected.value))
     >
       <div
         class="py-[18x] px-[16px] shadow-optionShadow mt-4 border border-[D9D9D9]
-         rounded-[8px] absolute z-50 w-full bg-white"
+         rounded-[8px] absolute z-[99999] w-full bg-white"
         v-show="open"
       >
         <div

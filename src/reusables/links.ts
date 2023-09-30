@@ -1,7 +1,8 @@
 import { ref } from 'vue'
 
+interface Link { link: string; title: string; color: string }
 
-const createLink = ref<{ link: string; title: string; color: string }[]>([])
+const createLink = ref<Link[]>([])
 
 export const useLink = () => {
   const selectOptions = ref<{ icon: string; title: string; color: string }[]>([
