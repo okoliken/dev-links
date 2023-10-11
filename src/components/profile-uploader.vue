@@ -29,7 +29,7 @@ const file = ref<any>(null)
 
 
 const openFile = () => {
-    fileInput.value.click()
+    fileInput.value?.click()
 }
 
 const handleFileChange = (event: Event) => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DevSelect, SelectOptions } from './types'
+import type { DevSelect, SelectOptions } from './types'
 import dropdownIcon from '../icons/dropdown-icon.vue'
 import { ref, onMounted } from 'vue'
 const open = ref(false)

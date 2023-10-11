@@ -1,5 +1,3 @@
-
-
 // Button type
 export type buttonType = 'filled' | 'outlined';
 export interface SelectOptions  {

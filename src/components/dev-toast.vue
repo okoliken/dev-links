@@ -1,5 +1,3 @@
-<script lang="ts" setup></script>
-
 <template>
   <Teleport to="body">
     <div class="fixed bottom-12 flex items-center justify-center w-full animate__animated animate__bounceInUp">

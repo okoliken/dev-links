@@ -26,16 +26,6 @@ export const useLink = () => {
       title: 'FaceBook',
       color: '#2442AC'
     }
-    // {
-    //   icon: 'ri-instagram-line',
-    //   title: 'Instagram',
-    //   color: '#1A1A1A'
-    // },
-    // {
-    //   icon: 'ri-discord-fill',
-    //   title: 'Discord',
-    //   color: '#34495E'
-    // }
   ])
 
   return {

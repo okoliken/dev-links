@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DevLinks from '../components/DevLinks.vue';
+// import DevLinks from '../components/DevLinks.vue';
 import { useLink } from '../reusables/links'
 
 const { createLink } = useLink()

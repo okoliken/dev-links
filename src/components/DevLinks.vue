@@ -20,7 +20,9 @@ const bgColor = computed(() => {
     <div :style="`background-color: ${bgColor}`"
       class="p-[16px] w-full rounded-[8px] flex items-center justify-between mb-6">
       <div class="flex items-center">
-        <!-- <i class="ri-github-line"></i> -->
+      
+       
+        <!-- <i class="ri-github-fill text-[14px] text-white"></i> -->
         <p class="text-white text-[16px]">{{ links.title }}</p>
       </div>
 

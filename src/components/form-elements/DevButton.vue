@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type DevButton } from './types'
+import type { DevButton } from './types'
 import { computed } from 'vue'
 const { disabled, type = 'filled', isLoading, width = 'none' } = defineProps<DevButton>()
 

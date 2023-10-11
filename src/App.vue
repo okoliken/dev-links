@@ -2,7 +2,7 @@
 import { RouterView, useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import RootLayout from './layouts/RootLayout.vue'
-import { ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress'
+import  {  ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress'
 const progresses = [] as ProgressFinisher[]
 const router = useRouter()
 
