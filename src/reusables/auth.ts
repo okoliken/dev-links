@@ -38,14 +38,18 @@ export const useAuthorize = () => {
     }
   }
 
-  const login = async (email: string, password: string) => {
+  const login = async (user_email: string, password: string) => {
     try {
       loading.value = true
       startRequestProgress()
-      const { $id, providerUid } = await DevAuth.createEmailSession(email, password)
+      await DevAuth.createEmailSession(user_email, password)
+
+      const { $id, email, name } = await DevAuth.get()
+      // console.log(account)
+
       loading.value = false
       endRequestProgress()
-      setUser({ $id, providerUid })
+      setUser({ $id, email, name })
       roam('/')
     } catch (Err: any) {
       notify(Err.message)
@@ -58,8 +62,8 @@ export const useAuthorize = () => {
     router.push(path)
   }
 
-  const setUser = (id: { $id: string; providerUid: string }) => {
-    sessionStorage.setItem('user', JSON.stringify(id))
+  const setUser = (user: { $id: string; email: string; name: string }) => {
+    sessionStorage.setItem('user', JSON.stringify(user))
   }
 
   const logout = () => {

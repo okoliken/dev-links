@@ -4,17 +4,17 @@ import DevButton from '../../components/form-elements/DevButton.vue'
 
 import { Form } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { signUpSchema } from '../../formSchema'
+import { signUpSchema, getSubmitRegFn } from '../../formSchema'
 
 import { useAuthorize } from '../../reusables/auth'
 const formSchema = toTypedSchema(signUpSchema)
 
 const {loading, register} = useAuthorize()
 
-async function onSubmit(values:{email:string, password:string}) {
-  // Submit values to API...
-  await register(values?.email, values?.password);
-}
+
+const submit = getSubmitRegFn(signUpSchema, async (values) => {
+  // await register(values?.email, values?.password)
+})
 </script>
 
 <template>
@@ -31,7 +31,7 @@ async function onSubmit(values:{email:string, password:string}) {
         v-slot="{ errorBag, errors }"
         class="mt-7"
         :validation-schema="formSchema"
-        @submit="onSubmit"
+        @submit="submit"
       >
         <div class="mt-5">
           <label

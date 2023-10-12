@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { DevSelect, SelectOptions } from './types'
+import { Icon } from '@iconify/vue';
 import dropdownIcon from '../icons/dropdown-icon.vue'
 import { ref, onMounted } from 'vue'
 const open = ref(false)
@@ -32,7 +33,8 @@ const selectOption = (option: SelectOptions) => {
       @blur="open = false"
     >
       <div class=" text-[16px] leading-[150%] flex items-center gap-x-3">
-        <i class="text-[17px] text-[#737373]" :class="selected.icon"></i>
+        <Icon class="text-[17px] text-[#737373]" :icon="selected.icon" />
+        <!-- <i class="text-[17px] text-[#737373]" :class="selected.icon"></i> -->
         <span class="text-[#737373]"> {{ selected.title }}</span>
       </div>
       <dropdownIcon class="transform transition-all" :class="[open ? ' rotate-180' : '']" />
@@ -46,7 +48,7 @@ const selectOption = (option: SelectOptions) => {
     >
       <div
         class="py-[18x] px-[16px] shadow-optionShadow mt-4 border border-[D9D9D9]
-         rounded-[8px] absolute z-[99999] w-full bg-white"
+         rounded-[8px] absolute sheet w-full bg-white"
         v-show="open"
       >
         <div
@@ -60,7 +62,8 @@ const selectOption = (option: SelectOptions) => {
           @mousedown="selectOption(option)"
         >
           <div class="flex items-center gap-x-3 elements">
-            <i class="text-[17px] text-[#737373]" :class="[option.icon, selected === option? 'text-brandPurple': null]"></i>
+            <Icon class="text-[17px] text-[#737373]" :class="[selected === option ? 'text-brandPurple': null]" :icon="option.icon" />
+            <!-- <i class="text-[17px] text-[#737373]" :class="[option.icon, selected === option? 'text-brandPurple': null]"></i> -->
             <span>{{ option.title }}</span>
           </div>
           <!-- <span v-if="selected === option" class="text-brandPurple ml-px text-base">(Selected)</span> -->
@@ -73,5 +76,9 @@ const selectOption = (option: SelectOptions) => {
 <style scoped>
 .elements:hover i,p{
   color:#633CFF;
+}
+
+.sheet{
+  z-index: 1000000;
 }
 </style>

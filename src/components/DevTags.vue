@@ -19,3 +19,8 @@ const { text, icon } = defineProps<Tags>()
   color: #633cff;
 }
 </style>
+
+
+<!-- ph:link
+gg:profile
+-->

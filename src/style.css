@@ -18,3 +18,12 @@ body{
     height: 5px !important;
     background-color: rgb(99, 60, 255) !important;
   }
+
+
+  .add-links {
+    font-family: Instrument Sans;
+  }
+
+  p{
+    font-family: Instrument Sans;
+  }

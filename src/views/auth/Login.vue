@@ -3,15 +3,14 @@ import DevInput from '../../components/form-elements/DevInput.vue'
 import DevButton from '../../components/form-elements/DevButton.vue'
 import { Form } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import { loginSchema } from '../../formSchema'
+import { loginSchema, getSubmitFn } from '../../formSchema'
 import { useAuthorize } from '../../reusables/auth'
 
 const { loading, login } = useAuthorize()
-
-async function onSubmit(values: { email: string; password: string }) {
-  // Submit values to API...
+const submit = getSubmitFn(loginSchema, async (values) => {
   await login(values?.email, values?.password)
-}
+})
+
 const formSchema = toTypedSchema(loginSchema)
 </script>
 
@@ -26,7 +25,7 @@ const formSchema = toTypedSchema(loginSchema)
       </p>
 
       <Form
-        @submit="onSubmit"
+        @submit="submit"
         v-slot="{ errorBag, errors }"
         class="mt-7"
         :validation-schema="formSchema"
