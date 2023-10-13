@@ -35,7 +35,7 @@ const selectOption = (option: SelectOptions) => {
       <div class=" text-[16px] leading-[150%] flex items-center gap-x-3">
         <Icon class="text-[17px] text-[#737373]" :icon="selected.icon" />
         <!-- <i class="text-[17px] text-[#737373]" :class="selected.icon"></i> -->
-        <span class="text-[#737373]"> {{ selected.title }}</span>
+        <span class="text-[#333]"> {{ selected.title }}</span>
       </div>
       <dropdownIcon class="transform transition-all" :class="[open ? ' rotate-180' : '']" />
     </div>
@@ -48,7 +48,7 @@ const selectOption = (option: SelectOptions) => {
     >
       <div
         class="py-[18x] px-[16px] shadow-optionShadow mt-4 border border-[D9D9D9]
-         rounded-[8px] absolute sheet w-full bg-white"
+         rounded-[8px] absolute sheet w-full bg-white h-[350px] overflow-hidden overflow-y-scroll"
         v-show="open"
       >
         <div
@@ -63,8 +63,8 @@ const selectOption = (option: SelectOptions) => {
         >
           <div class="flex items-center gap-x-3 elements">
             <Icon class="text-[17px] text-[#737373]" :class="[selected === option ? 'text-brandPurple': null]" :icon="option.icon" />
-            <!-- <i class="text-[17px] text-[#737373]" :class="[option.icon, selected === option? 'text-brandPurple': null]"></i> -->
-            <span>{{ option.title }}</span>
+           
+            <span class="text-[16px]">{{ option.title }}</span>
           </div>
           <!-- <span v-if="selected === option" class="text-brandPurple ml-px text-base">(Selected)</span> -->
         </div>
@@ -74,8 +74,15 @@ const selectOption = (option: SelectOptions) => {
 </template>
 
 <style scoped>
-.elements:hover i,p{
+.elements:hover svg{
   color:#633CFF;
+}
+.elements:hover p{
+  color:#633CFF;
+}
+
+.elements p{
+  color: #333;
 }
 
 .sheet{

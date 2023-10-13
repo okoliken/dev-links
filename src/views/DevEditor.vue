@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import DevButton from '../components/form-elements/DevButton.vue'
 import { onUpdated, ref } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 // @ts-ignore
 import emptyState from '../components/empty-state.vue'
 import CreateLink from '../components/create-link/CreateLink.vue'
 import { Form } from 'vee-validate'
 import DevInput from '../components/form-elements/DevInput.vue'
 import DevSelect from '../components/form-elements/DevSelect.vue'
-import { VueDraggableNext as draggable } from 'vue-draggable-next'
+import draggable from 'vuedraggable'
 import { validateUrl } from '../formSchema'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useLink } from '../reusables/links'
@@ -28,22 +29,9 @@ interface MovedObject {
 const formField = {
   title: 'Github',
   link: '',
-  color: '#1A1A1A'
+  color: '#1A1A1A',
+  id: ""
 }
-
-const log = (event: MovedObject) => {
-  const oldIndex = event.moved.oldIndex
-  const newIndex = event.moved.newIndex
-
-  // Remove the element from the old position
-  const removedElement = createLink.value.splice(oldIndex, 1)[0]
-  console.log(removedElement)
-
-  // Insert the element at the new position
-  console.log(createLink.value.splice(newIndex, 0, removedElement))
-}
-
-//
 
 // scroll to bottom on update
 const scrollTo = () => {
@@ -71,31 +59,25 @@ const icon = ref('teenyicons:github-solid')
       </p>
     </div>
     <DevButton
-      @click="createLink.push({ ...formField, title: selected, color: color, icon: icon })"
+      @click="createLink.push({ ...formField, title: selected, color: color, icon: icon, id: uuidv4() })"
       type="outlined"
       class="w-full mt-10 font-semibold add-links"
-      >+  Add new link
+      >+ Add new link
     </DevButton>
 
+    {{createLink}}
     <div id="linkContainer" class="h-[70vh] overflow-hidden overflow-y-scroll mb-24">
       <emptyState v-if="createLink.length <= 0" />
-      <draggable v-else class="list-group" @change="log">
-        <transition-group name="flip-transition">
-          <CreateLink
-            @remove="createLink.shift()"
-            :index="index"
-            class="list-group-item"
-            :key="index"
-            v-for="(values, index) in createLink"
-          >
+      <draggable v-model="createLink" item-key="id" v-else>
+        <template #item="{ element, index }">
+          <CreateLink :index="index" @remove="createLink.shift()">
             <Form :validation-schema="formSchema">
               <div class="my-3">
                 <label class="text-brandDarkGrey text-[13px]">Platform</label>
                 <DevSelect
-                  
                   @selected="
                     (e) => (
-                      (values.title = e.title), (values.color = e.color), (values.icon = e.icon)
+                      (element.title = e.title), (element.color = e.color), (element.icon = e.icon)
                     )
                   "
                   :options="selectOptions"
@@ -106,14 +88,14 @@ const icon = ref('teenyicons:github-solid')
                 <DevInput
                   name="url_link"
                   type="text"
-                  @sendvalue="(e) => (values.link = e)"
+                  @sendvalue="(e) => (element.link = e)"
                   placeholder="e.g. https://www.github.com/johnappleseed"
                   icon="ri-links-fill"
                 />
               </div>
             </Form>
           </CreateLink>
-        </transition-group>
+        </template>
       </draggable>
     </div>
   </main>

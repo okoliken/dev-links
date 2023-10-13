@@ -8,16 +8,16 @@ import ProfileFrame from '../components/ProfileFrame.vue'
 
 <template>
   <div class="bg-brandGrey min-h-screen">
-    <div class="w-full mb-4 sm:mb-0 md:p-4">
+    <div class="w-full mb-4 sm:mb-0 md:p-4 fixed z-50 bg-brandGrey">
       <DevNavigator />
     </div>
 
     <div class="flex items-center justify-center flex-col px-4">
-      <div class="grid grid-cols-12 w-full lg:gap-x-4 mb-4">
+      <div class="grid grid-cols-12 min-h-screen w-full lg:gap-x-4 mb-4 mt-28">
         <div
-          class="col-span-12 hidden  md:col-span-5 w-full bg-white rounded-[12px] p-[40px] lg:flex align-center justify-center"
+          class="col-span-12 hidden  md:col-span-5 w-full bg-white  rounded-[12px] p-[40px] lg:flex align-center justify-center"
         >
-          <div class="relative h-full flex items-center justify-center flex-col">
+          <div class="relative h-full transform md:-translate-y-8  flex items-center justify-center flex-col">
             <FrameOne class="relative" />
             <FrameTwo class="absolute left-3" />
             <ProfileFrame class="absolute w-full" />
