@@ -27,3 +27,9 @@ body{
   p{
     font-family: Instrument Sans;
   }
+
+
+  label{
+    font-family: Instrument Sans;
+    font-size: 12px;
+  }

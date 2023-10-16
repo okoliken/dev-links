@@ -13,7 +13,7 @@ const {loading, register} = useAuthorize()
 
 
 const submit = getSubmitRegFn(signUpSchema, async (values) => {
-  // await register(values?.email, values?.password)
+  await register(values?.email, values?.password)
 })
 </script>
 

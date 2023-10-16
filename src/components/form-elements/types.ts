@@ -12,6 +12,13 @@ export interface DevButton {
 }
 // end
 
+export interface Link {
+  link: string
+  title: string
+  color: string
+  id: string
+  icon: string;
+}
 // Input type
 
 export interface DevInput {
@@ -19,11 +26,13 @@ export interface DevInput {
     type:string;
     icon?:string;
     placeholder:string;
-    rules?:{url:string}
+    rules?: { url: string };
+   
 }
 
 export interface DevSelect {
   options: SelectOptions[] | [];
+  value?:Link
 }
 
 export interface Tags {

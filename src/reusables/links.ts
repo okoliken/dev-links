@@ -1,10 +1,11 @@
 import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid';
-interface Link {
+export interface Link {
   link: string
   title: string
   color: string
-  id:string
+  id: string
+  icon: string;
 }
 interface Options {
   icon: string

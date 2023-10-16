@@ -1,8 +1,14 @@
+<script setup lang="ts">
+import {toast_message} from '../useToast'
+</script>
+
 <template>
   <Teleport to="body">
     <div class="fixed bottom-12 flex items-center justify-center w-full animate__animated animate__bounceInUp">
     <div class="toast-dev bg-opacity-40">
-      <p class="text-brandGrey text-[16px] font-medium">Your changes have been successfully saved!</p>
+      <p class="text-brandGrey text-[16px] font-medium">
+        {{toast_message}}
+       </p>
     </div>
   </div>
   </Teleport>

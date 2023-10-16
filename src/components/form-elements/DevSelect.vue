@@ -5,10 +5,10 @@ import dropdownIcon from '../icons/dropdown-icon.vue'
 import { ref, onMounted } from 'vue'
 const open = ref(false)
 
-const emptyText = 'e.g. https://www.github.com/johnappleseed'
-const { options = [] } = defineProps<DevSelect>()
+const emptyText = 'Select Platform'
+const { options = [], value } = defineProps<DevSelect>()
 const emit = defineEmits(['selected'])
-const selected = ref<SelectOptions | any>(options.length > 0 ? options[0] : emptyText)
+const selected = ref<SelectOptions | any>(emptyText)
 
 const selectOption = (option: SelectOptions) => {
   selected.value = option
@@ -20,7 +20,14 @@ const selectOption = (option: SelectOptions) => {
 
 
 
-// onMounted(() => emit('selected', selected.value))
+onMounted(() => {
+  if (value.icon && value.title) {
+    selected.value = {
+      icon: value.icon,
+      title:value.title
+    }
+  } else return emptyText
+})
 </script>
 
 <template>
@@ -33,9 +40,9 @@ const selectOption = (option: SelectOptions) => {
       @blur="open = false"
     >
       <div class=" text-[16px] leading-[150%] flex items-center gap-x-3">
-        <Icon class="text-[17px] text-[#737373]" :icon="selected.icon" />
-        <!-- <i class="text-[17px] text-[#737373]" :class="selected.icon"></i> -->
-        <span class="text-[#333]"> {{ selected.title }}</span>
+        <Icon v-if="selected.icon" class="text-[17px] text-[#737373]" :icon="selected.icon" />
+     
+        <span class="text-[#333]"> {{ selected.title ||  selected}}</span>
       </div>
       <dropdownIcon class="transform transition-all" :class="[open ? ' rotate-180' : '']" />
     </div>

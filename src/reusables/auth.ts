@@ -28,12 +28,14 @@ export const useAuthorize = () => {
     try {
       loading.value = true
       startRequestProgress()
-      await DevAuth.create(`${ID.unique()}`, email, password)
+      await DevAuth.create(ID.unique(), email, password)
       await login(email, password)
       loading.value = false
-    } catch (Err: any) {
-      notify(Err.message)
       endRequestProgress()
+    } catch (Err: any) {
+      endRequestProgress()
+      notify(Err.message)
+      
       loading.value = false
     }
   }
@@ -66,7 +68,8 @@ export const useAuthorize = () => {
     sessionStorage.setItem('user', JSON.stringify(user))
   }
 
-  const logout = () => {
+  const logout = async () => {
+    await DevAuth.deleteSession('current')
     sessionStorage.removeItem('user')
     roam('/auth/login')
   }

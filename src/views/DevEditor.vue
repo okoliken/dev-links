@@ -1,19 +1,28 @@
 <script setup lang="ts">
+import { useDbActions } from '../reusables/dbActions'
+import { userDetails } from '../reusables/userInfo'
+import { Server } from '../utils/config'
+// @ts-ignore
 import DevButton from '../components/form-elements/DevButton.vue'
-import { onUpdated, ref } from 'vue'
+import { onUpdated, ref, onMounted } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 // @ts-ignore
 import emptyState from '../components/empty-state.vue'
+// @ts-ignore
 import CreateLink from '../components/create-link/CreateLink.vue'
 import { Form } from 'vee-validate'
+// @ts-ignore
 import DevInput from '../components/form-elements/DevInput.vue'
+// @ts-ignore
 import DevSelect from '../components/form-elements/DevSelect.vue'
 import draggable from 'vuedraggable'
 import { validateUrl } from '../formSchema'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useLink } from '../reusables/links'
+import { useAuthorize } from '../reusables/auth'
 
 const { selectOptions, createLink } = useLink()
+const { logout } = useAuthorize()
 // dragging elements
 interface MovedObject {
   moved: {
@@ -27,10 +36,10 @@ interface MovedObject {
 }
 
 const formField = {
-  title: 'Github',
+  title: '',
   link: '',
-  color: '#1A1A1A',
-  id: ""
+  color: '',
+  id: '',
 }
 
 // scroll to bottom on update
@@ -43,13 +52,20 @@ onUpdated(() => scrollTo())
 
 const formSchema = toTypedSchema(validateUrl)
 
-const selected = ref('GitHub')
-const color = ref('#1A1A1A')
-const icon = ref('teenyicons:github-solid')
+const selected = ref('')
+const color = ref('')
+const icon = ref('')
+
+onMounted(async () => {
+  const data = await useDbActions.getLinks(Server.collectionID)
+
+ createLink.value = data?.documents as any
+})
 </script>
 
 <template>
   <main>
+    <p @click="logout">logout</p>
     <div>
       <h1 class="text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2 md:mb-3">
         Customize your links
@@ -59,13 +75,14 @@ const icon = ref('teenyicons:github-solid')
       </p>
     </div>
     <DevButton
-      @click="createLink.push({ ...formField, title: selected, color: color, icon: icon, id: uuidv4() })"
+      @click="
+        createLink.push({ ...formField, title: selected, color: color, icon: icon, id: uuidv4() })
+      "
       type="outlined"
       class="w-full mt-10 font-semibold add-links"
       >+ Add new link
     </DevButton>
 
-    {{createLink}}
     <div id="linkContainer" class="h-[70vh] overflow-hidden overflow-y-scroll mb-24">
       <emptyState v-if="createLink.length <= 0" />
       <draggable v-model="createLink" item-key="id" v-else>
@@ -81,6 +98,7 @@ const icon = ref('teenyicons:github-solid')
                     )
                   "
                   :options="selectOptions"
+                  :value="element"
                 />
               </div>
               <div class="my-3">

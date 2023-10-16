@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Field, ErrorMessage } from 'vee-validate'
-import { type DevInput } from './types'
+import type { DevInput } from './types'
 import { computed } from 'vue'
 const emit = defineEmits(['sendvalue'])
 const paddingLeft = computed(() => {
