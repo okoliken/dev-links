@@ -1,14 +1,14 @@
 <template>
   <div
     @click="openFile"
-    class="img-uploader bg-brandLightPurple cursor-pointer hover:bg-opacity-70"
+    class="img-uploader bg-brandLightPurple cursor-pointer hover:bg-opacity-70 relative"
   >
-    <div class="flex items-center justify-center flex-col">
+    <div  class="flex items-center justify-center flex-col">
       <i class="ri-image-2-line text-[35px] text-brandPurple"></i>
       <p class="font-medium text-brandPurple">+ Upload Image</p>
     </div>
 
-    
+    <img v-if="imgBlob" class="absolute rounded-[12px]" :src="imgBlob" alt="">
     <input
       ref="fileInput"
       class="hidden"
@@ -26,7 +26,7 @@ import type { Ref } from 'vue'
 const fileInput: Ref<HTMLButtonElement | null> = ref(null)
 const file = ref<any>(null)
 
-
+const imgBlob = ref()
 
 const openFile = () => {
     fileInput.value?.click()
@@ -45,6 +45,8 @@ const handleFileChange = (event: Event) => {
           console.log('Image format and dimensions are valid')
          
           // Do something with the valid image
+
+          imgBlob.value = URL.createObjectURL(file.value)
         } else {
           console.log('Image dimensions are too large')
         }
@@ -65,5 +67,11 @@ const handleFileChange = (event: Event) => {
   align-items: center;
   border-radius: 12px;
   flex-direction: column;
+}
+
+.img-uploader img{
+  height: 170px;
+  width: 198px;
+  object-fit: cover;
 }
 </style>

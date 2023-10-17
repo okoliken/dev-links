@@ -1,8 +1,10 @@
 <script setup lang="ts">
+ // @ts-ignore
 import profileUploader from '../components/profile-uploader.vue'
 import {ref, onMounted} from "vue"
 import {userDetails} from "../reusables/userInfo" 
 import { Form as UpdateProfileForm } from 'vee-validate'
+// @ts-ignore
 import DevInput from '../components/form-elements/DevInput.vue'
 
 
@@ -42,7 +44,7 @@ import DevInput from '../components/form-elements/DevInput.vue'
           <label class="text-brandSoftGrey text-[12px] mb-1 md:mb-0 md:text-[16px] font-light"
             >First name*</label
           >
-          <DevInput v-model="name" name="name" type="text" class="w-full max-w-sm" placeholder="e.g. John" />
+          <DevInput  name="name" type="text" class="w-full max-w-sm" placeholder="e.g. John" />
         </div>
         <div
           class="mb-6 flex items-start flex-col md:flex-row md:items-center md:justify-between w-full"

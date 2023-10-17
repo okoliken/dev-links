@@ -29,7 +29,7 @@ export const useDbActions = {
 }
 
 // things left in project
-// get links createdby specific user
-// prefill form details after login
+// get links createdby specific user - DONE
+// prefill form details after login ~ DONE
 // profile picture upload (https://stackoverflow.com/questions/74120386/how-to-upload-and-access-a-photo-through-appwrite) (https://appwrite.io/docs/products/storage) & user info storage (https://appwrite.io/docs/references/cloud/client-web/account)
 // share link page

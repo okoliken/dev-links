@@ -27,7 +27,7 @@ export interface DevInput {
     icon?:string;
     placeholder:string;
     rules?: { url: string };
-   
+   modelValue?:any
 }
 
 export interface DevSelect {

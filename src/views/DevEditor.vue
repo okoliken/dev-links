@@ -58,8 +58,7 @@ const icon = ref('')
 
 onMounted(async () => {
   const data = await useDbActions.getLinks(Server.collectionID)
-
- createLink.value = data?.documents as any
+  createLink.value = data?.documents as any
 })
 </script>
 
@@ -106,6 +105,7 @@ onMounted(async () => {
                 <DevInput
                   name="url_link"
                   type="text"
+                  v-model="element.link"
                   @sendvalue="(e) => (element.link = e)"
                   placeholder="e.g. https://www.github.com/johnappleseed"
                   icon="ri-links-fill"
@@ -120,10 +120,4 @@ onMounted(async () => {
 </template>
 
 
-
-<style scoped>
-.flip-transition-move {
-  transition: all 0.7s;
-}
-</style>
 
