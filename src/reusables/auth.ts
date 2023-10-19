@@ -1,21 +1,25 @@
 import { ref } from 'vue'
 import { account as DevAuth, ID } from '../server'
-import { toast, type ToastOptions } from 'vue3-toastify'
+import { toast } from 'vue3-toastify'
+import type { ToastOptions } from 'vue3-toastify'
 import { type ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress'
 import { useRouter } from 'vue-router'
 const progresses = [] as ProgressFinisher[]
 const loading = ref(false)
 
-export const useAuthorize = () => {
-  const router = useRouter()
-
-  const notify = (msg: string) => {
+  export const notify = (msg: string) => {
     toast(msg, {
       autoClose: 1000,
       position: toast.POSITION.TOP_RIGHT,
       type: 'error'
     } as ToastOptions)
   }
+
+
+
+export const useAuthorize = () => {
+  const router = useRouter()
+
 
   const startRequestProgress = () => {
     progresses.push(useProgress().start())

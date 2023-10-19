@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import DevNavigator from '../components/DevNavigator.vue'
 import FrameOne from '../components/FrameOne.vue'
 import FrameTwo from '../components/FrameTwo.vue'
@@ -14,6 +14,13 @@ const { createLink } = useLink()
 import type { Link } from '../reusables/dbActions'
 
 const loading = ref(false)
+
+
+const action_type = computed(() => {
+  return
+})
+
+
 const save = async (devInfo: Link[]) => {
   try {
     if (devInfo.length > 0) {

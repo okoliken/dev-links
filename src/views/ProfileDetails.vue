@@ -28,7 +28,7 @@ import DevInput from '../components/form-elements/DevInput.vue'
       <p class="text-brandSoftGrey text-[16px] font-light">Profile picture</p>
       <div class="flex flex-col md:flex-row md:items-center md:gap-x-6">
         <profileUploader class="my-3 md:my-0" />
-        <p class="text-brandSoftGrey text-[14px] font-light mt-4 md:mt-0">
+        <p class="text-brandDarkGrey text-[14px] font-light mt-4 md:mt-0">
           Image must be below 1024x1024px. <br class="hidden md:block" />
           Use PNG or JPG format.
         </p>

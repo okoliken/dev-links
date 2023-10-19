@@ -1,4 +1,4 @@
-import { Client, Account, ID, Databases, Permission, Role, Query,  } from 'appwrite'
+import { Client, Account, ID, Databases, Permission, Role, Query,Storage  } from 'appwrite'
 import { Server } from './utils/config'
 
 
@@ -8,8 +8,8 @@ client.setEndpoint(import.meta.env.VITE_APP_ENDPOINT).setProject(import.meta.env
 
 
 const database = new Databases(client);
-const permission = new Permission()
+const storage = new Storage(client)
 
 
-export { account, client, ID, database, Permission, Role, Query }
+export { account, client, ID, database, Permission, Role, Query, storage }
 // sweet 😁

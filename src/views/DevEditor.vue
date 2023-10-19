@@ -56,10 +56,7 @@ const selected = ref('')
 const color = ref('')
 const icon = ref('')
 
-onMounted(async () => {
-  const data = await useDbActions.getLinks(Server.collectionID)
-  createLink.value = data?.documents as any
-})
+
 </script>
 
 <template>

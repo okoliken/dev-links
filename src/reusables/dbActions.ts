@@ -1,7 +1,7 @@
 import { Server } from '../utils/config'
-import { account as DevAuth, ID, database, Permission, Role, Query } from '../server'
+import {  ID, database,  Query, storage } from '../server'
 import { type ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress'
-import { useRouter } from 'vue-router'
+
 const progresses = [] as ProgressFinisher[]
 
 export interface Link {
@@ -25,6 +25,13 @@ export const useDbActions = {
     return database.listDocuments(Server.database, collectionId, [
       Query.select(['title', 'icon', 'color', 'link', 'id'])
     ])
+  },
+
+  uploader: (img:File) => {
+    return storage.createFile(Server.bucket, ID.unique(), img)
+  },
+  getFiles: () => {
+    return storage.listFiles(Server.bucket)
   }
 }
 
