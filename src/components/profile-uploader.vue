@@ -1,18 +1,24 @@
 <template>
   <div
     @click="openFile"
-    class="img-uploader bg-brandLightPurple cursor-pointer hover:bg-opacity-70 relative "
+    class="img-uploader bg-brandLightPurple cursor-pointer hover:bg-opacity-70 relative"
   >
     <div class="flex items-center justify-center flex-col">
       <i class="ri-image-2-line text-[35px] text-brandPurple"></i>
       <p class="font-medium text-brandPurple">+ Upload Image</p>
     </div>
 
-    <div v-if="imgBlob" class="profile__blur  absolute rounded-[12px]">
-
-      <img  class="rounded-[12px]" :src="imgBlob" alt="" />
+    <div
+      v-if="imgBlob"
+      :style="`background-image:linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,0.4)), url(${imgBlob})`"
+      class="profile__blur absolute rounded-[12px]"
+    >
+      <div class="flex items-center justify-center flex-col h-full">
+        <i class="ri-image-2-line text-[35px] text-white"></i>
+        <p class="text-white font-medium">Change Image</p>
+      </div>
     </div>
-    
+
     <input
       ref="fileInput"
       class="hidden"
@@ -24,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
 import { useUpload } from '../reusables/upload'
 const { imgBlob, handleProfileUpload } = useUpload()
@@ -47,11 +53,7 @@ const handleFileChange = (event: Event) => {
       image.onload = () => {
         if (image.width <= 1024 && image.height <= 1024) {
           console.log('Image format and dimensions are valid')
-
-          // Do something with the valid image
-
           imgBlob.value = URL.createObjectURL(file.value)
-
           handleProfileUpload(file.value)
         } else {
           console.log('Image dimensions are too large')
@@ -63,7 +65,9 @@ const handleFileChange = (event: Event) => {
   }
 }
 
-
+onMounted(() => {
+  console.log(imgBlob.value)
+})
 </script>
 
 <style scoped>
@@ -76,9 +80,11 @@ const handleFileChange = (event: Event) => {
   flex-direction: column;
 }
 
-.profile__blur{
-  background:linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,0.6)) ;
+.profile__blur {
+  background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
   height: 170px;
+  background-size: cover;
+  background-position: center center;
   width: 198px;
 }
 .img-uploader img {

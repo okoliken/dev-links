@@ -1,5 +1,5 @@
-import { Client, Account, ID, Databases, Permission, Role, Query,Storage  } from 'appwrite'
-import { Server } from './utils/config'
+import { Client, Account, ID, Databases, Permission, Role, Query,Storage,  } from 'appwrite'
+
 
 
 const client = new Client()

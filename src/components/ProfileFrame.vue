@@ -75,6 +75,4 @@ const elementLength = computed(() => {
 .details {
   font-family: Instrument Sans;
 }
-
-
 </style>

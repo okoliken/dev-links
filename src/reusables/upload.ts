@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useDbActions } from '../reusables/dbActions'
 import { notify } from '../reusables/auth'
 import { Server } from '../utils/config'
@@ -10,12 +10,17 @@ interface file {
   bucketId: string
 }
 
+const userInfo = reactive({
+  email: '',
+  first_name:'',
+  last_name:'',
+})
+
+
 export const useUpload = () => {
   const handleProfileUpload = async (img: File) => {
     try {
-      const res = await useDbActions.uploader(img)
-      console.log(res)
-      // notify
+      await useDbActions.uploader(img)
     } catch (error: any) {
       notify(error)
     }
@@ -24,7 +29,6 @@ export const useUpload = () => {
   const sterilizeData = (file: file[]) => {
     if (file.length > 0) {
       const data = file[0]
-
       return `https://cloud.appwrite.io/v1/storage/buckets/${data.bucketId}/files/${data.$id}/view?project=${Server.project}`
     } else return null
   }
@@ -32,6 +36,7 @@ export const useUpload = () => {
   return {
     imgBlob,
     handleProfileUpload,
-    sterilizeData
+    sterilizeData,
+    userInfo
   }
 }

@@ -10,7 +10,7 @@ const paddingLeft = computed(() => {
   return icon !== '' ? 'pl-[40px] pr-[16px]' : 'pl-[20px] pr-[16px]'
 })
 
-const { name = 'text', type = 'text', icon = '', placeholder, modelValue } = defineProps<DevInput>()
+const { name = 'text', type = 'text', icon = '', placeholder, modelValue, disabled = false } = defineProps<DevInput>()
 
 const sendValues = (val: any) => {
   emit('sendvalue', val.target.value)
@@ -24,6 +24,7 @@ function onInput(e:any) {
 
 <template>
   <div class="relative">
+    
     <i
       v-if="icon"
       :class="icon"
@@ -47,7 +48,7 @@ function onInput(e:any) {
           !w-full
         "
         
-        value="modelValue"
+        :disabled="disabled"
         v-bind="field"
         :class="[
           !meta.valid && errorMessage
@@ -57,6 +58,7 @@ function onInput(e:any) {
         ]"
         :name="name"
         :type="type"
+        :value="modelValue"
         @input="(e) => (sendValues(e), onInput(e))"
         autocomplete="off"
         :placeholder="placeholder"

@@ -51,7 +51,6 @@ export const useAuthorize = () => {
       await DevAuth.createEmailSession(user_email, password)
 
       const { $id, email, name } = await DevAuth.get()
-      // console.log(account)
 
       loading.value = false
       endRequestProgress()

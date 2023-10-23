@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import DevNavigator from '../components/DevNavigator.vue'
 import FrameOne from '../components/FrameOne.vue'
 import FrameTwo from '../components/FrameTwo.vue'
@@ -12,18 +13,24 @@ import { Server } from '../utils/config'
 import { showToast } from '../useToast'
 const { createLink } = useLink()
 import type { Link } from '../reusables/dbActions'
+import { useUpload } from '../reusables/upload'
+const { userInfo } = useUpload()
 
 const loading = ref(false)
-
+const btnState = ref(false)
+const route = useRoute()
 
 const action_type = computed(() => {
-  return
+  if (route.name === 'Editor') {
+    return route.name
+  } else if (route.name === 'Profile Details') {
+    return route.name
+  } else return
 })
-
 
 const save = async (devInfo: Link[]) => {
   try {
-    if (devInfo.length > 0) {
+    if (devInfo.length < 0) {
       loading.value = true
       const createLinkPromises = devInfo.map((info) => {
         return useDbActions.createLink(Server.collectionID, info, userDetails.value?.$id)
@@ -33,10 +40,21 @@ const save = async (devInfo: Link[]) => {
 
       loading.value = false
       showToast(5000, true, ' Your changes have been successfully saved!')
+    } else if (devInfo.length > 0) {
+      return
     } else return
   } catch (error) {
     loading.value = false
   }
+}
+
+const updateUserInfo = async () => {
+  if (userInfo.first_name && userInfo.last_name) {
+     loading.value = true
+    await useDbActions.updateInfo(`${userInfo.first_name} ${userInfo.last_name}`)
+    showToast(5000, true, `Your changes have been successfully saved!`)
+     loading.value = false
+  } else return
 }
 </script>
 
@@ -102,7 +120,8 @@ const save = async (devInfo: Link[]) => {
             "
           >
             <DevButton
-              @click="save(createLink)"
+              :disabled="btnState"
+              @click="action_type === 'Editor' ? save(createLink) : updateUserInfo()"
               :isLoading="loading"
               class="md:mr-4 w-full md:w-auto"
               type="filled"

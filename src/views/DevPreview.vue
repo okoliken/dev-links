@@ -1,23 +1,23 @@
 <script setup lang="ts">
-// import DevLinks from '../components/DevLinks.vue';
+import DevLinks from '../components/DevLinks.vue';
 import { useLink } from '../reusables/links'
-
+import {useUpload} from '../reusables/upload'
 const { createLink } = useLink()
+const  {imgBlob} = useUpload()
 </script>
 
 <template>
   <div class="!w-full max-w-[350px] profile flex items-center justify-center flex-col ">
     <div class="border-4 border-brandPurple w-[104px] h-[104px] rounded-full">
-      <img class="w-[104px] h-[96px] rounded-full object-cover" src="https://picsum.photos/id/11/500/300" alt="">
+      <div v-if="!imgBlob" class="w-[96px] h-[96px] bg-[#EEEEEE] rounded-full"></div>
+      <img v-else class="w-[104px] h-[96px] rounded-full object-cover" :src="imgBlob" alt="user image">
     </div>
     <div class="flex items-center justify-center flex-col gap-y-2 mt-6">
       <h2 class="text-brandDarkGrey text-[32px] font-bold leading-[150%]">Ben Wright</h2>
       <p class="text-brandSoftGrey text-[16px] font-light">ben@example.com</p>
     </div>
-
-
     <div class="w-full mt-12">
-      <!-- <DevLinks :links="links" v-for="links in createLink" /> -->
+      <DevLinks :links="links" v-for="links in createLink" :key="links.id" />
     </div>
   </div>
 </template>

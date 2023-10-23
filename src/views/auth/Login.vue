@@ -5,12 +5,15 @@ import { Form } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { loginSchema, getSubmitFn } from '../../formSchema'
 import { useAuthorize } from '../../reusables/auth'
-
+import {ref} from 'vue'
 const { loading, login } = useAuthorize()
 const submit = getSubmitFn(loginSchema, async (values) => {
   await login(values?.email, values?.password)
 })
 
+
+const email = ref('')
+const password = ref('')
 const formSchema = toTypedSchema(loginSchema)
 </script>
 
@@ -38,6 +41,7 @@ const formSchema = toTypedSchema(loginSchema)
           >
           <DevInput
             name="email"
+            v-model="email"
             type="email"
             placeholder="e.g. alex@email.com"
             icon="ri-mail-line"
@@ -51,6 +55,7 @@ const formSchema = toTypedSchema(loginSchema)
             >Password</label
           >
           <DevInput
+          v-model="password"
             name="password"
             type="password"
             placeholder="Enter your password"

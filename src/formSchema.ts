@@ -34,8 +34,6 @@ export function getSubmitFn<Schema extends zod.ZodObject<Record<string, any>>>(
 
 // 33         @submit="submit"
 
-
-
 export function getSubmitRegFn<Schema extends zod.ZodObject<Record<string, any>>>(
   _: Schema,
   callback: (values: zod.infer<Schema>, ctx: SubmissionContext) => void
@@ -52,10 +50,9 @@ export const loginSchema = zod.object({
   password: zod.string().nonempty('Please check again').min(8, { message: 'Password is too short' })
 })
 
-
 export const signUpSchema = zod
   .object({
-    email: zod.string().nonempty('This is required').email({ message: 'Must be a valid email' }),
+    email: zod.string().nonempty('Email is required').email({ message: 'Must be a valid email' }),
     password: zod
       .string()
       .nonempty('Password field is required')
@@ -69,6 +66,13 @@ export const signUpSchema = zod
     message: 'Passwords do not match',
     path: ['confirm'] // this value is concatenated to the end of the actual path of the error
   })
+
+export const profileSchema = zod.object({
+  email: zod.string().nullable(),
+  first_name: zod.string().nonempty('First name field is required'),
+
+  last_name: zod.string().nonempty('Last name field is required')
+})
 
 export const validateUrl = zod.object({
   url_link: zod

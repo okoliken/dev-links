@@ -1,5 +1,5 @@
 import { Server } from '../utils/config'
-import {  ID, database,  Query, storage } from '../server'
+import {  ID, database,  Query, storage, account as DevAuth } from '../server'
 import { type ProgressFinisher, useProgress } from '@marcoschulte/vue3-progress'
 
 const progresses = [] as ProgressFinisher[]
@@ -27,11 +27,19 @@ export const useDbActions = {
     ])
   },
 
+  updateLinks: () => {
+    // return database.updateDocument()
+  },
+
   uploader: (img:File) => {
     return storage.createFile(Server.bucket, ID.unique(), img)
   },
   getFiles: () => {
     return storage.listFiles(Server.bucket)
+  },
+  updateInfo: async (name: string) => {
+    await DevAuth.updateName(name)
+    // await DevAuth.updateEmail()
   }
 }
 

@@ -8,7 +8,8 @@ export interface DevButton {
   disabled?: boolean | any;
   type: buttonType;
   isLoading?:boolean;
-  width?:string
+  width?: string;
+
 }
 // end
 
@@ -27,7 +28,8 @@ export interface DevInput {
     icon?:string;
     placeholder:string;
     rules?: { url: string };
-   modelValue?:any
+  modelValue?: any;
+  disabled?: boolean | any;
 }
 
 export interface DevSelect {

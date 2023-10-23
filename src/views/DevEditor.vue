@@ -24,16 +24,7 @@ import { useAuthorize } from '../reusables/auth'
 const { selectOptions, createLink } = useLink()
 const { logout } = useAuthorize()
 // dragging elements
-interface MovedObject {
-  moved: {
-    element: {
-      title: string
-      link: string
-    }
-    oldIndex: number
-    newIndex: number
-  }
-}
+
 
 const formField = {
   title: '',
