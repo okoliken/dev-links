@@ -20,17 +20,16 @@ import { validateUrl } from '../formSchema'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useLink } from '../reusables/links'
 import { useAuthorize } from '../reusables/auth'
-
+import { Icon } from '@iconify/vue'
 const { selectOptions, createLink } = useLink()
 const { logout } = useAuthorize()
 // dragging elements
-
 
 const formField = {
   title: '',
   link: '',
   color: '',
-  id: '',
+  id: ''
 }
 
 // scroll to bottom on update
@@ -46,13 +45,17 @@ const formSchema = toTypedSchema(validateUrl)
 const selected = ref('')
 const color = ref('')
 const icon = ref('')
-
-
 </script>
 
 <template>
   <main>
-    <p @click="logout">logout</p>
+    <div
+      @click="logout"
+      class="fixed right-0 flex items-center gap-x-1 cursor-pointer bg-white h-12 py-1 px-2 rounded shadow-md z-50"
+    >
+      <Icon class="text-[20px] text-gray-500 font-semibold" icon="ic:twotone-logout" />
+      <p class="mr-4 text-gray-500">Logout</p>
+    </div>
     <div>
       <h1 class="text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2 md:mb-3">
         Customize your links

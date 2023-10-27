@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import DevNavigator from '../components/DevNavigator.vue'
 import FrameOne from '../components/FrameOne.vue'
@@ -11,10 +11,12 @@ import { userDetails } from '../reusables/userInfo'
 import { useDbActions } from '../reusables/dbActions'
 import { Server } from '../utils/config'
 import { showToast } from '../useToast'
+
 const { createLink } = useLink()
 import type { Link } from '../reusables/dbActions'
 import { useUpload } from '../reusables/upload'
-const { userInfo } = useUpload()
+const { userInfo, imgBlob, sterilizeData } = useUpload()
+
 
 const loading = ref(false)
 const btnState = ref(false)
@@ -25,12 +27,12 @@ const action_type = computed(() => {
     return route.name
   } else if (route.name === 'Profile Details') {
     return route.name
-  } else return
+  } else return 'Editor'
 })
 
 const save = async (devInfo: Link[]) => {
   try {
-    if (devInfo.length < 0) {
+    if (devInfo.length > 0) {
       loading.value = true
       const createLinkPromises = devInfo.map((info) => {
         return useDbActions.createLink(Server.collectionID, info, userDetails.value?.$id)
@@ -40,26 +42,49 @@ const save = async (devInfo: Link[]) => {
 
       loading.value = false
       showToast(5000, true, ' Your changes have been successfully saved!')
-    } else if (devInfo.length > 0) {
-      return
     } else return
+
+    // else if (devInfo.length > 0) {
+    //   return
+    // }
   } catch (error) {
+    console.log('error')
     loading.value = false
   }
 }
 
 const updateUserInfo = async () => {
   if (userInfo.first_name && userInfo.last_name) {
-     loading.value = true
+    loading.value = true
     await useDbActions.updateInfo(`${userInfo.first_name} ${userInfo.last_name}`)
     showToast(5000, true, `Your changes have been successfully saved!`)
-     loading.value = false
+    loading.value = false
   } else return
 }
+
+onMounted(async () => {
+  try {
+    const data = await useDbActions.getLinks(Server.collectionID)
+    if (data?.documents) {
+      createLink.value = data?.documents as any
+    } else createLink.value = []
+  } catch (error) {
+    return
+  }
+
+  try {
+    const file = await useDbActions.getFiles()
+    if (file.files) {
+      imgBlob.value = sterilizeData(file.files)
+    }
+  } catch (error) {
+   return
+  }
+})
 </script>
 
 <template>
-  <div class="bg-brandGrey min-h-screen">
+  <div class="bg-brandGrey min-h-screen relaive">
     <div class="w-full mb-4 sm:mb-0 md:p-4 fixed z-50 bg-brandGrey">
       <DevNavigator />
     </div>
@@ -67,30 +92,10 @@ const updateUserInfo = async () => {
     <div class="flex items-center justify-center flex-col px-6">
       <div class="grid grid-cols-12 min-h-screen w-full lg:gap-x-6 mb-4 mt-28">
         <div
-          class="
-            col-span-12
-            hidden
-            md:col-span-5
-            w-full
-            bg-white
-            rounded-[12px]
-            p-[40px]
-            lg:flex
-            align-center
-            justify-center
-          "
+          class="col-span-12 hidden md:col-span-5 w-full bg-white rounded-[12px] p-[40px] lg:flex align-center justify-center"
         >
           <div
-            class="
-              relative
-              h-full
-              transform
-              md:-translate-y-8
-              flex
-              items-center
-              justify-center
-              flex-col
-            "
+            class="relative h-full transform md:-translate-y-8 flex items-center justify-center flex-col"
           >
             <FrameOne class="relative" />
             <FrameTwo class="absolute left-3" />
@@ -106,18 +111,8 @@ const updateUserInfo = async () => {
           </div>
 
           <div
-            class="
-              p-[16px]
-              md:p-[25px]
-              flex
-              items-end
-              justify-end
-              border-t border-brandBorder
-              absolute
-              w-full
-              bottom-0
-              bg-white
-            "
+          v-if="createLink.length >0"
+            class="p-[16px] md:p-[25px] flex items-end justify-end border-t border-brandBorder absolute w-full bottom-0 bg-white"
           >
             <DevButton
               :disabled="btnState"
