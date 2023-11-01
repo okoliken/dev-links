@@ -1,28 +1,27 @@
 <script setup lang="ts">
-import { useDbActions } from '../reusables/dbActions'
-import { userDetails } from '../reusables/userInfo'
-import { Server } from '../utils/config'
-// @ts-ignore
 import DevButton from '../components/form-elements/DevButton.vue'
-import { onUpdated, ref, onMounted } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
-// @ts-ignore
 import emptyState from '../components/empty-state.vue'
-// @ts-ignore
 import CreateLink from '../components/create-link/CreateLink.vue'
-import { Form } from 'vee-validate'
-// @ts-ignore
 import DevInput from '../components/form-elements/DevInput.vue'
-// @ts-ignore
 import DevSelect from '../components/form-elements/DevSelect.vue'
 import draggable from 'vuedraggable'
+
+import { onUpdated, ref } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
+import type { Link } from '../reusables/dbActions'
+import { Form } from 'vee-validate'
 import { validateUrl } from '../formSchema'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useLink } from '../reusables/links'
+
+import { useUpload } from '../reusables/upload'
 import { useAuthorize } from '../reusables/auth'
 import { Icon } from '@iconify/vue'
+import { notify } from '../reusables/auth'
 const { selectOptions, createLink } = useLink()
 const { logout } = useAuthorize()
+
+const { save, loading, update } = useUpload()
 // dragging elements
 
 const formField = {
@@ -41,10 +40,31 @@ onUpdated(() => scrollTo())
 // end
 
 const formSchema = toTypedSchema(validateUrl)
-
+const form = ref()
 const selected = ref('')
 const color = ref('')
 const icon = ref('')
+
+const addLink = (links: Link) => {
+  createLink.value.push(links)
+}
+
+const submit = async () => {
+  console.log(form.value)
+  if (!form.value?.validate()) {
+    return
+  } else {
+    try {
+      loading.value = true
+
+      await update()
+      await save()
+    } catch (error) {
+      notify(error)
+      loading.value = false
+    }
+  }
+}
 </script>
 
 <template>
@@ -64,10 +84,9 @@ const icon = ref('')
         Add/edit/remove links below and then share all your profiles with the world!
       </p>
     </div>
+
     <DevButton
-      @click="
-        createLink.push({ ...formField, title: selected, color: color, icon: icon, id: uuidv4() })
-      "
+      @click="addLink({ ...formField, title: selected, color: color, icon: icon, id: uuidv4() })"
       type="outlined"
       class="w-full mt-10 font-semibold add-links"
       >+ Add new link
@@ -78,7 +97,7 @@ const icon = ref('')
       <draggable v-model="createLink" item-key="id" v-else>
         <template #item="{ element, index }">
           <CreateLink :index="index" @remove="createLink.shift()">
-            <Form :validation-schema="formSchema">
+            <Form ref="form" :validation-schema="formSchema">
               <div class="my-3">
                 <label class="text-brandDarkGrey text-[13px]">Platform</label>
                 <DevSelect
@@ -106,9 +125,20 @@ const icon = ref('')
           </CreateLink>
         </template>
       </draggable>
+
+      <div
+        
+        class="p-[16px] md:p-[25px] flex items-end justify-end border-t 
+        border-brandBorder absolute w-full bottom-0 bg-white left-0"
+      >
+        <DevButton
+          :isLoading="loading"
+          @click="submit"
+          class="md:mr-4 w-full md:w-auto"
+          type="filled"
+          >Save</DevButton
+        >
+      </div>
     </div>
   </main>
 </template>
-
-
-

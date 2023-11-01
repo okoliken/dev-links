@@ -18,8 +18,6 @@ const selectOption = (option: SelectOptions) => {
   emit('selected', selected.value)
 }
 
-
-
 onMounted(() => {
   if (value.icon && value.title) {
     selected.value = {
@@ -28,6 +26,8 @@ onMounted(() => {
     }
   } else return emptyText
 })
+
+
 </script>
 
 <template>
@@ -63,12 +63,12 @@ onMounted(() => {
             'border-b border-[#D9D9D9]': options?.length - 1 !== i,
             'text-brandPurple': selected === option
           }"
-          class="text-[16px] p-3 text-[#737373] cursor-pointer hover:text-brandPurple w-full bg-white flex items-center gap-x-3"
+          class="text-[16px] p-3 text-[#737373] cursor-pointer hover:text-brandPurple w-full bg-white flex items-center elements gap-x-3"
           v-for="(option, i) of options"
           :key="i"
           @mousedown="selectOption(option)"
         >
-          <div class="flex items-center gap-x-3 elements">
+          <div class="flex items-center gap-x-3 ">
             <Icon class="text-[17px] text-[#737373]" :class="[selected === option ? 'text-brandPurple': null]" :icon="option.icon" />
            
             <span class="text-[16px]">{{ option.title }}</span>
@@ -82,10 +82,10 @@ onMounted(() => {
 
 <style scoped>
 .elements:hover svg{
-  color:#633CFF;
+  color:#633CFF !important;
 }
 .elements:hover p{
-  color:#633CFF;
+  color:#633CFF !important;
 }
 
 .elements p{

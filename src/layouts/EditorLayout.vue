@@ -1,71 +1,27 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
 import DevNavigator from '../components/DevNavigator.vue'
 import FrameOne from '../components/FrameOne.vue'
 import FrameTwo from '../components/FrameTwo.vue'
 import DevButton from '../components/form-elements/DevButton.vue'
 import ProfileFrame from '../components/ProfileFrame.vue'
+
+import { onMounted } from 'vue'
 import { useLink } from '../reusables/links'
-import { userDetails } from '../reusables/userInfo'
 import { useDbActions } from '../reusables/dbActions'
 import { Server } from '../utils/config'
-import { showToast } from '../useToast'
 
 const { createLink } = useLink()
-import type { Link } from '../reusables/dbActions'
 import { useUpload } from '../reusables/upload'
-const { userInfo, imgBlob, sterilizeData } = useUpload()
+const { imgBlob, sterilizeData } = useUpload()
 
 
-const loading = ref(false)
-const btnState = ref(false)
-const route = useRoute()
-
-const action_type = computed(() => {
-  if (route.name === 'Editor') {
-    return route.name
-  } else if (route.name === 'Profile Details') {
-    return route.name
-  } else return 'Editor'
-})
-
-const save = async (devInfo: Link[]) => {
-  try {
-    if (devInfo.length > 0) {
-      loading.value = true
-      const createLinkPromises = devInfo.map((info) => {
-        return useDbActions.createLink(Server.collectionID, info, userDetails.value?.$id)
-      })
-
-      await Promise.all(createLinkPromises)
-
-      loading.value = false
-      showToast(5000, true, ' Your changes have been successfully saved!')
-    } else return
-
-    // else if (devInfo.length > 0) {
-    //   return
-    // }
-  } catch (error) {
-    console.log('error')
-    loading.value = false
-  }
-}
-
-const updateUserInfo = async () => {
-  if (userInfo.first_name && userInfo.last_name) {
-    loading.value = true
-    await useDbActions.updateInfo(`${userInfo.first_name} ${userInfo.last_name}`)
-    showToast(5000, true, `Your changes have been successfully saved!`)
-    loading.value = false
-  } else return
-}
 
 onMounted(async () => {
   try {
     const data = await useDbActions.getLinks(Server.collectionID)
+
     if (data?.documents) {
+      // const val = data?.documents
       createLink.value = data?.documents as any
     } else createLink.value = []
   } catch (error) {
@@ -78,7 +34,7 @@ onMounted(async () => {
       imgBlob.value = sterilizeData(file.files)
     }
   } catch (error) {
-   return
+    return
   }
 })
 </script>
@@ -109,22 +65,19 @@ onMounted(async () => {
           <div class="p-[24px] md:p-[40px]">
             <slot></slot>
           </div>
-
-          <div
-          v-if="createLink.length >0"
-            class="p-[16px] md:p-[25px] flex items-end justify-end border-t border-brandBorder absolute w-full bottom-0 bg-white"
-          >
-            <DevButton
-              :disabled="btnState"
-              @click="action_type === 'Editor' ? save(createLink) : updateUserInfo()"
-              :isLoading="loading"
-              class="md:mr-4 w-full md:w-auto"
-              type="filled"
-              >Save</DevButton
-            >
-          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+
+<!-- 
+
+  update machanism:
+
+  Feat: any object that has $databaseId should be filtered out in a computed prop, while those not having should be filtered out as well
+
+  1. computed prop to filter ones coming from db with $databaseId, then update them instead.
+  2. computed prop to filter new ones coming from app, then create them.
+ -->

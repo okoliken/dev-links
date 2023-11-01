@@ -19,6 +19,7 @@ export interface Link {
   color: string
   id: string
   icon: string;
+  $databaseId?:string
 }
 // Input type
 

@@ -69,9 +69,9 @@ export const signUpSchema = zod
 
 export const profileSchema = zod.object({
   email: zod.string().nullable(),
-  first_name: zod.string().nonempty('First name field is required'),
+  first_name: zod.string(),
 
-  last_name: zod.string().nonempty('Last name field is required')
+  last_name: zod.string()
 })
 
 export const validateUrl = zod.object({

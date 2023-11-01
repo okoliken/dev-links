@@ -1,20 +1,35 @@
 <script setup lang="ts">
-// @ts-ignore
+import DevButton from '../components/form-elements/DevButton.vue'
+import DevInput from '../components/form-elements/DevInput.vue'
 import profileUploader from '../components/profile-uploader.vue'
-import { reactive, onMounted } from 'vue'
+
+import { onMounted, ref } from 'vue'
 import { userDetails } from '../reusables/userInfo'
 import { useUpload } from '../reusables/upload'
 import { Form as UpdateProfileForm } from 'vee-validate'
 import { profileSchema } from '../formSchema'
 import { toTypedSchema } from '@vee-validate/zod'
-const { userInfo } = useUpload()
-// @ts-ignore
-import DevInput from '../components/form-elements/DevInput.vue'
+
+const { userInfo, updateUserInfo, loading } = useUpload()
+
+const form = ref()
+
+const handleSubmit = () => {
+  if (form.value?.validate()) {
+    updateUserInfo()
+  }
+}
 
 onMounted(() => {
   if (userDetails.value) {
     userInfo.email = userDetails.value?.email
   }
+
+  if (userDetails.value?.name) {
+    const name = userDetails.value?.name.split(' ')
+    userInfo.first_name = name[0]
+    userInfo.last_name = name[1]
+  } else return
 })
 const formSchema = toTypedSchema(profileSchema)
 </script>
@@ -31,17 +46,7 @@ const formSchema = toTypedSchema(profileSchema)
     </div>
 
     <div
-      class="
-        bg-brandGrey
-        p-[20px]
-        my-8
-        rounded-[12px]
-        flex
-        items-start
-        flex-col
-        justify-start
-        md:flex-row md:items-center md:justify-between
-      "
+      class="bg-brandGrey p-[20px] my-8 rounded-[12px] flex items-start flex-col justify-start md:flex-row md:items-center md:justify-between"
     >
       <p class="text-brandSoftGrey text-[16px] font-light">Profile picture</p>
       <div class="flex flex-col md:flex-row md:items-center md:gap-x-6">
@@ -53,29 +58,15 @@ const formSchema = toTypedSchema(profileSchema)
       </div>
     </div>
     <div
-      class="
-        bg-brandGrey
-        p-[20px]
-        my-8
-        rounded-[12px]
-        flex
-        items-center
-        lg:justify-between
-        w-full
-        overflow-hidden overflow-y-scroll
-        mb-24
-      "
+      class="bg-brandGrey p-[20px] my-8 rounded-[12px] flex items-center lg:justify-between w-full overflow-hidden overflow-y-scroll mb-24"
     >
-      <UpdateProfileForm :validation-schema="formSchema" class="!w-full transform translate-y-2">
+      <UpdateProfileForm
+        ref="form"
+        :validation-schema="formSchema"
+        class="!w-full transform translate-y-2"
+      >
         <div
-          class="
-            mb-6
-            flex
-            items-start
-            flex-col
-            md:flex-row md:items-center md:justify-between
-            w-full
-          "
+          class="mb-6 flex items-start flex-col md:flex-row md:items-center md:justify-between w-full"
         >
           <label class="text-brandSoftGrey text-[12px] mb-1 md:mb-0 md:text-[16px] font-light"
             >First name*</label
@@ -89,14 +80,7 @@ const formSchema = toTypedSchema(profileSchema)
           />
         </div>
         <div
-          class="
-            mb-6
-            flex
-            items-start
-            flex-col
-            md:flex-row md:items-center md:justify-between
-            w-full
-          "
+          class="mb-6 flex items-start flex-col md:flex-row md:items-center md:justify-between w-full"
         >
           <label class="text-brandSoftGrey text-[12px] mb-1 md:mb-0 md:text-[16px] font-light"
             >Last name*</label
@@ -110,14 +94,7 @@ const formSchema = toTypedSchema(profileSchema)
           />
         </div>
         <div
-          class="
-            mb-6
-            flex
-            items-start
-            flex-col
-            md:flex-row md:items-center md:justify-between
-            w-full
-          "
+          class="mb-6 flex items-start flex-col md:flex-row md:items-center md:justify-between w-full"
         >
           <label class="text-brandSoftGrey text-[12px] mb-1 md:mb-0 md:text-[16px] font-light"
             >Email</label
@@ -132,6 +109,17 @@ const formSchema = toTypedSchema(profileSchema)
           />
         </div>
       </UpdateProfileForm>
+    </div>
+    <div
+      class="p-[16px] md:p-[25px] flex items-end justify-end border-t border-brandBorder absolute w-full bottom-0 bg-white left-0"
+    >
+      <DevButton
+        @click="handleSubmit"
+        :isLoading="loading"
+        class="md:mr-4 w-full md:w-auto"
+        type="filled"
+        >Save</DevButton
+      >
     </div>
   </div>
 </template>

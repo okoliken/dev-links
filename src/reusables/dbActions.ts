@@ -10,6 +10,7 @@ export interface Link {
   color: string
   id: string
   icon: string
+  $id?:string
 }
 
 
@@ -23,12 +24,13 @@ export const useDbActions = {
   },
   getLinks: (collectionId: string) => {
     return database.listDocuments(Server.database, collectionId, [
-      Query.select(['title', 'icon', 'color', 'link', 'id'])
+      Query.select(['title', 'icon', 'color', 'link', 'id', '$id'])
     ])
   },
 
-  updateLinks: () => {
-    // return database.updateDocument()
+  updateLinks: (collectionId: string, documentId: string, data: Link) => {
+    console.log(collectionId, documentId, data)
+    return database.updateDocument(Server.database, collectionId, documentId, data)
   },
 
   uploader: (img:File) => {

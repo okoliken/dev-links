@@ -6,6 +6,8 @@ export interface Link {
   color: string
   id: string
   icon: string;
+  $databaseId?: string
+  $id?:string
 }
 interface Options {
   icon: string
