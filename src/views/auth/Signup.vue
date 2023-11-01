@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DevInput from '../../components/form-elements/DevInput.vue'
 import DevButton from '../../components/form-elements/DevButton.vue'
-
+import  { ref } from 'vue'
 import { Form } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { signUpSchema, getSubmitRegFn } from '../../formSchema'
@@ -11,6 +11,10 @@ const formSchema = toTypedSchema(signUpSchema)
 
 const {loading, register} = useAuthorize()
 
+
+const email = ref('')
+const password = ref('')
+const confirm_password = ref('')
 
 const submit = getSubmitRegFn(signUpSchema as any, async (values) => {
   await register(values?.email, values?.password)
@@ -42,6 +46,7 @@ const submit = getSubmitRegFn(signUpSchema as any, async (values) => {
           <DevInput
             name="email"
             type="email"
+            v-model="email"
             placeholder="e.g. alex@email.com"
             icon="ri-mail-line"
           />
@@ -56,6 +61,7 @@ const submit = getSubmitRegFn(signUpSchema as any, async (values) => {
           <DevInput
             name="password"
             type="password"
+            v-model="password"
             placeholder="At least 8 characters"
             icon="ri-lock-2-fill"
           />
@@ -69,6 +75,7 @@ const submit = getSubmitRegFn(signUpSchema as any, async (values) => {
           <DevInput
             name="confirm_password"
             type="password"
+            v-model="confirm_password"
             placeholder="At least 8 characters"
             icon="ri-lock-2-fill"
           />
