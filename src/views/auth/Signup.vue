@@ -12,7 +12,7 @@ const formSchema = toTypedSchema(signUpSchema)
 const {loading, register} = useAuthorize()
 
 
-const submit = getSubmitRegFn(signUpSchema, async (values) => {
+const submit = getSubmitRegFn(signUpSchema as any, async (values) => {
   await register(values?.email, values?.password)
 })
 </script>

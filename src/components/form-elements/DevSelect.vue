@@ -19,10 +19,10 @@ const selectOption = (option: SelectOptions) => {
 }
 
 onMounted(() => {
-  if (value.icon && value.title) {
+  if (value?.icon && value?.title) {
     selected.value = {
-      icon: value.icon,
-      title:value.title
+      icon: value?.icon,
+      title:value?.title
     }
   } else return emptyText
 })

@@ -59,7 +59,7 @@ const submit = async () => {
 
       await update()
       await save()
-    } catch (error) {
+    } catch (error:any) {
       notify(error)
       loading.value = false
     }
