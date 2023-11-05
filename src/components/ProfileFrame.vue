@@ -36,14 +36,14 @@ const elementLength = computed(() => {
 
     <!-- title -->
     <div
-      v-if="!userDetails.name"
+      v-if="!userDetails?.name"
       class="bg-[#EEEEEE] rounded-[104px] w-[160px] h-[16px] mt-6"
     ></div>
     <h3 class="mt-7 font-semibold capitalize text-[18px] details" v-else>{{ userDetails.name }}</h3>
     <!-- end -->
 
     <!-- email -->
-    <div v-if="!userDetails.email" class="bg-[#EEEEEE] rounded-[104px] w-[72px] h-[8px] mt-6"></div>
+    <div v-if="!userDetails?.email" class="bg-[#EEEEEE] rounded-[104px] w-[72px] h-[8px] mt-6"></div>
     <p v-else class="mt-3 text-[14px] font-light text-brandSoftGrey details">
       {{ userDetails.email }}
     </p>
