@@ -6,6 +6,7 @@ import DevInput from '../components/form-elements/DevInput.vue'
 import DevSelect from '../components/form-elements/DevSelect.vue'
 import draggable from 'vuedraggable'
 
+import { Server } from '../utils/config'
 import { onUpdated, ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import type { Link } from '../reusables/dbActions'
@@ -15,11 +16,13 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useLink } from '../reusables/links'
 
 import { useUpload } from '../reusables/upload'
+import { useDbActions } from '../reusables/dbActions'
 import { useAuthorize } from '../reusables/auth'
 import { Icon } from '@iconify/vue'
 import { notify } from '../reusables/auth'
 const { selectOptions, createLink } = useLink()
 const { logout } = useAuthorize()
+
 
 const { save, loading, update } = useUpload()
 // dragging elements
@@ -50,13 +53,11 @@ const addLink = (links: Link) => {
 }
 
 const submit = async () => {
-  console.log(form.value)
   if (!form.value?.validate()) {
     return
   } else {
     try {
       loading.value = true
-
       await update()
       await save()
     } catch (error:any) {
@@ -64,6 +65,13 @@ const submit = async () => {
       loading.value = false
     }
   }
+}
+
+const deleteLink = async (id: {id:string, docId:string}) => {
+  createLink.value = createLink.value.filter((link) => link.id !== id.id)
+  if (id.docId) {
+    await useDbActions.deleteLink(Server.collectionID, id.docId)
+  } else return
 }
 </script>
 
@@ -95,8 +103,8 @@ const submit = async () => {
     <div id="linkContainer" class="h-[70vh] overflow-hidden overflow-y-scroll mb-24">
       <emptyState v-if="createLink.length <= 0" />
       <draggable v-model="createLink" item-key="id" v-else>
-        <template #item="{ element, index }">
-          <CreateLink :index="index" @remove="createLink.shift()">
+        <template #item="{ element, index}">
+          <CreateLink :docId="element.$id" :id="element.id" :index="index" @remove="deleteLink">
             <Form ref="form" :validation-schema="formSchema">
               <div class="my-3">
                 <label class="text-brandDarkGrey text-[13px]">Platform</label>
@@ -125,9 +133,7 @@ const submit = async () => {
           </CreateLink>
         </template>
       </draggable>
-
       <div
-        
         class="p-[16px] md:p-[25px] flex items-end justify-end border-t 
         border-brandBorder absolute w-full bottom-0 bg-white left-0"
       >

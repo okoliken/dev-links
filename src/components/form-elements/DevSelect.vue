@@ -13,7 +13,6 @@ const selected = ref<SelectOptions | any>(emptyText)
 const selectOption = (option: SelectOptions) => {
   selected.value = option
 
-  console.log(selected.value)
   open.value = false
   emit('selected', selected.value)
 }
@@ -70,10 +69,8 @@ onMounted(() => {
         >
           <div class="flex items-center gap-x-3 ">
             <Icon class="text-[17px] text-[#737373]" :class="[selected === option ? 'text-brandPurple': null]" :icon="option.icon" />
-           
             <span class="text-[16px]">{{ option.title }}</span>
           </div>
-          <!-- <span v-if="selected === option" class="text-brandPurple ml-px text-base">(Selected)</span> -->
         </div>
       </div>
     </Transition>

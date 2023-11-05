@@ -5,7 +5,10 @@
         <span class="w-[12px] text-brandSoftGrey">=</span>
         <h4 class="text-brandSoftGrey font-bold leading-[150%]">Link #{{ index + 1 }}</h4>
       </div>
-      <p @click="emit('remove')" class="text-brandSoftGrey font-light text-[16px] cursor-pointer hover:cursor-pointer">
+      <p
+        @click="emit('remove', { id: id, docId: docId })"
+        class="text-brandSoftGrey font-light text-[16px] cursor-pointer hover:cursor-pointer"
+      >
         Remove
       </p>
     </header>
@@ -15,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-const { index = 1 } = defineProps(['index'])
+const { index = 1, id } = defineProps(['index', 'id', 'docId'])
 const emit = defineEmits(['remove'])
 </script>
-

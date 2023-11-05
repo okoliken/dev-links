@@ -50,17 +50,22 @@ export const useAuthorize = () => {
       startRequestProgress()
       await DevAuth.createEmailSession(user_email, password)
 
-      const { $id, email, name } = await DevAuth.get()
+      await getUser()
 
       loading.value = false
       endRequestProgress()
-      setUser({ $id, email, name })
+      
       roam('/')
     } catch (Err: any) {
       notify(Err.message)
       endRequestProgress()
       loading.value = false
     }
+  }
+
+  const getUser = async () => {
+    const { $id, email, name } = await DevAuth.get()
+    setUser({ $id, email, name })
   }
 
   const roam = (path: string) => {
@@ -83,6 +88,7 @@ export const useAuthorize = () => {
     roam,
     setUser,
     logout,
-    loading
+    loading,
+    getUser
   }
 }

@@ -70,14 +70,11 @@ export const useUpload = () => {
   })
 
 
- 
-
   const save = async () => {
-    console.log(newDataFromApp.value.length)
+
     if (newDataFromApp.value.length) {
       try {
-      
- 
+
         loading.value = true
         const createLinkPromises = newDataFromApp.value.map((info) => {
           return useDbActions.createLink(Server.collectionID, info, userDetails.value?.$id)
@@ -86,23 +83,23 @@ export const useUpload = () => {
         await Promise.all(createLinkPromises)
         loading.value = false
         showToast(5000, true, ' Your changes have been successfully saved!')
-      } 
-      
-      
-       catch (error) {
-     
-      loading.value = false
+      }
+
+
+      catch (error) {
+
+        loading.value = false
+      }
     }
-    }
-  else return
-   
+    else return
+
   }
 
   const update = async () => {
     try {
       if (oldDataFromDb.value.length > 0) {
         loading.value = true
-        console.log(oldDataFromDb.value)
+
         const updateLinkPromises = oldDataFromDb.value.map((info) => {
           return useDbActions.updateLinks(Server.collectionID, String(info.$id), {
             color: info.color,
@@ -116,7 +113,7 @@ export const useUpload = () => {
         await Promise.all(updateLinkPromises)
         loading.value = false
       }
-      else return 
+      else return
     } catch (error) {
       loading.value = false
     }

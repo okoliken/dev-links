@@ -14,6 +14,7 @@
   "dependencies": {
     "@marcoschulte/vue3-progress": "^0.0.7",
     "@vee-validate/zod": "^4.11.3",
+    "@vueuse/core": "^10.5.0",
     "animate.css": "^4.1.1",
     "appwrite": "^13.0.0",
     "sharp": "^0.32.5",

@@ -26,7 +26,7 @@ const elementLength = computed(() => {
       <div v-else>
         <img
           loading="lazy"
-          class="w-[98px] h-[98px] rounded-full border-4 border-brandPurple"
+          class="w-[98px] h-[98px] rounded-full border-4 border-brandPurple object-cover"
           v-bind:src="imgBlob"
           alt=""
         />

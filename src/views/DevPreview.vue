@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import DevLinks from '../components/DevLinks.vue';
 import { useLink } from '../reusables/links'
-import {useUpload} from '../reusables/upload'
+import { userDetails } from '../reusables/userInfo'
+import { useUpload } from '../reusables/upload'
 const { createLink } = useLink()
-const  {imgBlob} = useUpload()
+const { imgBlob } = useUpload()
 </script>
 
 <template>
@@ -13,8 +14,8 @@ const  {imgBlob} = useUpload()
       <img v-else class="w-[104px] h-[96px] rounded-full object-cover" :src="imgBlob" alt="user image">
     </div>
     <div class="flex items-center justify-center flex-col gap-y-2 mt-6">
-      <h2 class="text-brandDarkGrey text-[32px] font-bold leading-[150%]">Ben Wright</h2>
-      <p class="text-brandSoftGrey text-[16px] font-light">ben@example.com</p>
+      <h2 class="text-brandDarkGrey text-[32px] font-bold leading-[150%]">{{ userDetails.name }}</h2>
+      <p class="text-brandSoftGrey text-[16px] font-light">{{ userDetails.email }}</p>
     </div>
     <div class="w-full mt-12">
       <DevLinks :links="links" v-for="links in createLink" :key="links.id" />

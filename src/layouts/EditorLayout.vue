@@ -2,9 +2,7 @@
 import DevNavigator from '../components/DevNavigator.vue'
 import FrameOne from '../components/FrameOne.vue'
 import FrameTwo from '../components/FrameTwo.vue'
-import DevButton from '../components/form-elements/DevButton.vue'
 import ProfileFrame from '../components/ProfileFrame.vue'
-
 import { onMounted } from 'vue'
 import { useLink } from '../reusables/links'
 import { useDbActions } from '../reusables/dbActions'
@@ -21,7 +19,6 @@ onMounted(async () => {
     const data = await useDbActions.getLinks(Server.collectionID)
 
     if (data?.documents) {
-      // const val = data?.documents
       createLink.value = data?.documents as any
     } else createLink.value = []
   } catch (error) {

@@ -7,6 +7,8 @@ import ProfileDetailsVue from '../views/ProfileDetails.vue'
 import EditorLayout from '../layouts/EditorLayout.vue'
 import AuthLayoutVue from '@/layouts/AuthLayout.vue'
 import PreviewLayout from '../layouts/PreviewLayout.vue'
+// @ts-ignore
+import UserPreviewLayout from '@/layouts/UserPreviewLayout.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -22,7 +24,6 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'Profile Details',
-      // @ts-ignore
       component: () => import('../views/ProfileDetails.vue'),
       meta: {
         hasAccess: true,
@@ -32,11 +33,20 @@ const router = createRouter({
     {
       path: '/preview',
       name: 'Preview Page',
-      // @ts-ignore
       component: () => import('../views/DevPreview.vue'),
       meta: {
         hasAccess: true,
         layout: PreviewLayout
+      }
+    },
+    {
+      path: '/preview-my-links',
+      name: 'User Preview Page',
+      // @ts-ignore
+      component: () => import('../views/UserPreview.vue'),
+      meta: {
+        hasAccess: false,
+        layout: UserPreviewLayout
       }
     },
     {
@@ -67,7 +77,7 @@ const router = createRouter({
       }
     }
   ],
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior() {
     return { top: 0 }
   }
 })
