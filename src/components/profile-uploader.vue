@@ -11,7 +11,7 @@
     <div
       v-if="imgBlob"
       :style="`background-image:linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,0.4)), url(${imgBlob})`"
-      class="profile__blur absolute rounded-[12px]"
+      class="profile__blur absolute rounded-[12px] w-full lg:w-[198px]"
     >
       <div class="flex items-center justify-center flex-col h-full">
         <i class="ri-image-2-line text-[35px] text-white"></i>
@@ -85,7 +85,7 @@ onMounted(() => {
   height: 170px;
   background-size: cover;
   background-position: center center;
-  width: 198px;
+
 }
 .img-uploader img {
   height: 170px;

@@ -1,12 +1,11 @@
 
 
 import { computed } from 'vue'
-import { useStorage } from '@vueuse/core'
 
-const dev = useStorage('user', 'name' || null, sessionStorage) 
-  
+ const user = sessionStorage.getItem('user')
+
 export const userDetails = computed(() => {
-  if(dev.value !== null) {
-    return JSON.parse(dev.value)
+  if(user !== null) {
+    return JSON.parse(user)
   } else return null
 })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onBeforeMount } from 'vue'
 import DevLinks from '../components/DevLinks.vue'
 import { useLink } from '../reusables/links'
 import { userDetails } from '../reusables/userInfo'
@@ -12,16 +12,17 @@ const { getUser } = useAuthorize()
 const { createLink } = useLink()
 const { imgBlob, sterilizeData } = useUpload()
 
-sessionStorage.setItem(
-  'user',
-  JSON.stringify({
-    $id: '',
-    email: '',
-    name: ''
-  })
-)
 
-onMounted(async () => {
+onBeforeMount(async () => {
+    sessionStorage.setItem(
+        'user',
+        JSON.stringify({
+            $id: '',
+            email: '',
+            name: ''
+        })
+    )
+
     try {
         await getUser()
         const data = await useDbActions.getLinks(Server.collectionID)
@@ -52,9 +53,9 @@ onMounted(async () => {
         </div>
         <div class="flex items-center justify-center flex-col gap-y-2 mt-6">
             <h2 class="text-brandDarkGrey text-[32px] font-bold leading-[150%]">
-                {{ userDetails.name }}
+                {{ userDetails?.name }}
             </h2>
-            <p class="text-brandSoftGrey text-[16px] font-light">{{ userDetails.email }}</p>
+            <p class="text-brandSoftGrey text-[16px] font-light">{{ userDetails?.email }}</p>
         </div>
         <div class="w-full mt-12">
             <DevLinks :links="links" v-for="links in createLink" :key="links.id" />
