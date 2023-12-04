@@ -10,11 +10,11 @@ const { imgBlob } = useUpload()
 const { createLink } = useLink()
 
 const elementLength = computed(() => {
-  if (createLink.value.length && createLink.value.length <= 5) {
-    return 5 - createLink.value.length
-  } else if (createLink.value.length >= 5) {
+  if (createLink.value.length && createLink.value.length <= 4) {
+    return 4 - createLink.value.length
+  } else if (createLink.value.length >= 4) {
     return
-  } else return 5
+  } else return 4
 })
 </script>
 <template>
@@ -28,7 +28,7 @@ const elementLength = computed(() => {
           loading="lazy"
           class="w-[98px] h-[98px] rounded-full border-4 border-brandPurple object-cover"
           v-bind:src="imgBlob"
-          alt=""
+          alt="profile"
         />
       </div>
     </div>
@@ -43,7 +43,10 @@ const elementLength = computed(() => {
     <!-- end -->
 
     <!-- email -->
-    <div v-if="!userDetails?.email" class="bg-[#EEEEEE] rounded-[104px] w-[72px] h-[8px] mt-6"></div>
+    <div
+      v-if="!userDetails?.email"
+      class="bg-[#EEEEEE] rounded-[104px] w-[72px] h-[8px] mt-6"
+    ></div>
     <p v-else class="mt-3 text-[14px] font-light text-brandSoftGrey details">
       {{ userDetails.email }}
     </p>
