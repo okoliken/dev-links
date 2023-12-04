@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-brandGrey rounded-[12px] p-[20px] mt-7">
+  <div  class="bg-brandGrey rounded-[12px] p-[20px] mt-7">
     <header class="flex items-center justify-between">
       <div class="flex items-center gap-x-2 cursor-grab">
         <span class="w-[12px] text-brandSoftGrey">=</span>

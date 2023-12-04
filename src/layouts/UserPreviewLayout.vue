@@ -1,7 +1,8 @@
-
 <template>
   <div>
-    <div class="bg-white md:bg-brandPurple min-h-[357px] w-full hero md:py-5 md:px-5"></div>
+    <div
+      class="bg-white md:bg-brandPurple min-h-[230px] lg:min-h-[357px] w-full hero md:py-5 md:px-5"
+    ></div>
     <div
       class="flex items-center justify-center w-full transform -translate-y-44 md:-translate-y-32"
     >

@@ -7,13 +7,14 @@ import DevSelect from '../components/form-elements/DevSelect.vue'
 import draggable from 'vuedraggable'
 
 import { Server } from '../utils/config'
-import { onUpdated, ref } from 'vue'
+import { onUpdated, ref, computed } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import type { Link } from '../reusables/dbActions'
 import { Form } from 'vee-validate'
 import { validateUrl } from '../formSchema'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useLink } from '../reusables/links'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 import { useUpload } from '../reusables/upload'
 import { useDbActions } from '../reusables/dbActions'
@@ -23,6 +24,13 @@ import { notify } from '../reusables/auth'
 const { selectOptions, createLink } = useLink()
 const { logout } = useAuthorize()
 
+// disable dnd on mobile
+const isMobile = computed(() => {
+  const breakpoints = useBreakpoints(breakpointsTailwind)
+
+  return breakpoints.greaterOrEqual('md')
+})
+//
 
 const { save, loading, update } = useUpload()
 // dragging elements
@@ -60,14 +68,14 @@ const submit = async () => {
       loading.value = true
       await update()
       await save()
-    } catch (error:any) {
+    } catch (error: any) {
       notify(error)
       loading.value = false
     }
   }
 }
 
-const deleteLink = async (id: {id:string, docId:string}) => {
+const deleteLink = async (id: { id: string; docId: string }) => {
   createLink.value = createLink.value.filter((link) => link.id !== id.id)
   if (id.docId) {
     await useDbActions.deleteLink(Server.collectionID, id.docId)
@@ -102,9 +110,15 @@ const deleteLink = async (id: {id:string, docId:string}) => {
 
     <div id="linkContainer" class="h-[70vh] overflow-hidden overflow-y-scroll mb-24">
       <emptyState v-if="createLink.length <= 0" />
-      <draggable v-model="createLink" item-key="id" v-else>
-        <template #item="{ element, index}">
-          <CreateLink :docId="element.$id" :id="element.id" :index="index" @remove="deleteLink">
+      <draggable :disabled="!isMobile" v-model="createLink" item-key="id" v-else>
+        <template #item="{ element, index }">
+          <CreateLink
+            :class="[!isMobile ? 'cursor-no-drop' : 'cursor-move']"
+            :docId="element.$id"
+            :id="element.id"
+            :index="index"
+            @remove="deleteLink"
+          >
             <Form ref="form" :validation-schema="formSchema">
               <div class="my-3">
                 <label class="text-brandDarkGrey text-[13px]">Platform</label>
@@ -134,8 +148,7 @@ const deleteLink = async (id: {id:string, docId:string}) => {
         </template>
       </draggable>
       <div
-        class="p-[16px] md:p-[25px] flex items-end justify-end border-t 
-        border-brandBorder absolute w-full bottom-0 bg-white left-0"
+        class="p-[16px] md:p-[25px] flex items-end justify-end border-t border-brandBorder absolute w-full bottom-0 bg-white left-0"
       >
         <DevButton
           :isLoading="loading"
