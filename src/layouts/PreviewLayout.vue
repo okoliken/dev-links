@@ -58,9 +58,9 @@ const goBack = () => {
 const readTextFromClipboard = async (url: string) => {
   try {
     await navigator.clipboard.writeText(url)
-    showToast(6000, true, 'The link has been copied to your clipboard!')
+    showToast(true, 'The link has been copied to your clipboard!')
   } catch (error) {
-    console.error('Failed to copy text: ', error)
+    showToast(true,'Failed to copy text')
   }
 }
 </script>

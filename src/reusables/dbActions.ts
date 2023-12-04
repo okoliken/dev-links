@@ -29,12 +29,14 @@ export const useDbActions = {
   },
 
   updateLinks: (collectionId: string, documentId: string, data: Link) => {
-    console.log(collectionId, documentId, data)
     return database.updateDocument(Server.database, collectionId, documentId, data)
   },
 
   uploader: (img:File) => {
     return storage.createFile(Server.bucket, ID.unique(), img)
+  },
+  deleteImage: (fileId:string) => {
+    return storage.deleteFile(Server.bucket,fileId)
   },
   getFiles: () => {
     return storage.listFiles(Server.bucket)

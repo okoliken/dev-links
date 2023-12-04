@@ -30,9 +30,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import type { Ref } from 'vue'
 import { useUpload } from '../reusables/upload'
+import { showToast } from '../useToast'
 const { imgBlob, handleProfileUpload } = useUpload()
 
 const fileInput: Ref<HTMLButtonElement | null> = ref(null)
@@ -42,7 +43,7 @@ const openFile = () => {
   fileInput.value?.click()
 }
 
-const handleFileChange = (event: Event) => {
+const handleFileChange =  (event: Event) => {
   const input = event.target as HTMLInputElement
   file.value = input.files?.[0]
 
@@ -50,13 +51,12 @@ const handleFileChange = (event: Event) => {
     const reader = new FileReader()
     reader.onload = (e) => {
       const image = new Image()
-      image.onload = () => {
+      image.onload = async () => {
         if (image.width <= 1024 && image.height <= 1024) {
-          console.log('Image format and dimensions are valid')
           imgBlob.value = URL.createObjectURL(file.value)
-          handleProfileUpload(file.value)
+          await handleProfileUpload(file.value)
         } else {
-          console.log('Image dimensions are too large')
+          showToast(true, 'Image dimensions are too large')
         }
       }
       image.src = e.target?.result as string
@@ -64,10 +64,6 @@ const handleFileChange = (event: Event) => {
     reader.readAsDataURL(file.value)
   }
 }
-
-onMounted(() => {
-  console.log(imgBlob.value)
-})
 </script>
 
 <style scoped>
@@ -85,7 +81,6 @@ onMounted(() => {
   height: 170px;
   background-size: cover;
   background-position: center center;
-
 }
 .img-uploader img {
   height: 170px;

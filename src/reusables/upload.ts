@@ -11,6 +11,7 @@ const imgBlob = ref<any>(null)
 const loading = ref(false)
 const btnState = ref(false)
 const logs = ref([])
+const fileId = ref('')
 
 interface file {
   $id: string
@@ -25,15 +26,29 @@ const userInfo = reactive({
 
 export const useUpload = () => {
   const handleProfileUpload = async (img: File) => {
-    try {
-      await useDbActions.uploader(img)
-    } catch (error: any) {
-      notify(error)
+    if (imgBlob.value === null) {
+      try {
+        await useDbActions.uploader(img)
+      } catch (error: any) {
+        notify(error)
+      }
+    } else {
+      try {
+        await useDbActions.deleteImage(fileId.value)
+      } catch (error: any) {
+        notify(error)
+      }
+      try {
+        await useDbActions.uploader(img)
+      } catch (error: any) {
+        notify(error)
+      }
     }
   }
 
   const sterilizeData = (file: file[]) => {
     if (file.length > 0) {
+      fileId.value = file[0].$id
       const data = file[0]
       return `https://cloud.appwrite.io/v1/storage/buckets/${data.bucketId}/files/${data.$id}/view?project=${Server.project}`
     } else return null
@@ -69,12 +84,9 @@ export const useUpload = () => {
     } else return []
   })
 
-
   const save = async () => {
-
     if (newDataFromApp.value.length) {
       try {
-
         loading.value = true
         const createLinkPromises = newDataFromApp.value.map((info) => {
           return useDbActions.createLink(Server.collectionID, info, userDetails.value?.$id)
@@ -82,17 +94,11 @@ export const useUpload = () => {
 
         await Promise.all(createLinkPromises)
         loading.value = false
-        showToast(5000, true, ' Your changes have been successfully saved!')
-      }
-
-
-      catch (error) {
-
+        showToast(true, ' Your changes have been successfully saved!')
+      } catch (error) {
         loading.value = false
       }
-    }
-    else return
-
+    } else return
   }
 
   const update = async () => {
@@ -112,8 +118,7 @@ export const useUpload = () => {
 
         await Promise.all(updateLinkPromises)
         loading.value = false
-      }
-      else return
+      } else return
     } catch (error) {
       loading.value = false
     }
@@ -123,7 +128,7 @@ export const useUpload = () => {
     if (userInfo.first_name && userInfo.last_name) {
       loading.value = true
       await useDbActions.updateInfo(`${userInfo.first_name} ${userInfo.last_name}`)
-      showToast(5000, true, `Your changes have been successfully saved!`)
+      showToast(true, `Your changes have been successfully saved!`)
       loading.value = false
     } else return
   }
