@@ -5,6 +5,7 @@ import { Server } from '../utils/config'
 import { userDetails } from '../reusables/userInfo'
 import { showToast } from '../useToast'
 import { useLink } from '../reusables/links'
+import { useAuthorize } from '../reusables/auth'
 
 const { createLink } = useLink()
 const imgBlob = ref<any>(null)
@@ -25,6 +26,7 @@ const userInfo = reactive({
 })
 
 export const useUpload = () => {
+  const { getUser } = useAuthorize()
   const handleProfileUpload = async (img: File) => {
     if (imgBlob.value === null) {
       try {
@@ -89,7 +91,7 @@ export const useUpload = () => {
       try {
         loading.value = true
         const createLinkPromises = newDataFromApp.value.map((info) => {
-          return useDbActions.createLink(Server.collectionID, info, userDetails.value?.$id)
+          return useDbActions.createLink(Server.collectionID, info, userDetails()?.$id)
         })
 
         await Promise.all(createLinkPromises)
@@ -128,6 +130,8 @@ export const useUpload = () => {
     if (userInfo.first_name && userInfo.last_name) {
       loading.value = true
       await useDbActions.updateInfo(`${userInfo.first_name} ${userInfo.last_name}`)
+      await getUser()
+
       showToast(true, `Your changes have been successfully saved!`)
       loading.value = false
     } else return

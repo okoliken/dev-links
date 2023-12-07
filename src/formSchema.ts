@@ -1,6 +1,6 @@
 import * as zod from 'zod'
 import { configure } from 'vee-validate'
-import type { SubmissionContext, GenericObject } from 'vee-validate'
+import type { SubmissionContext } from 'vee-validate'
 
 // Default values
 configure({
@@ -77,7 +77,6 @@ export const profileSchema = zod.object({
 export const validateUrl = zod.object({
   url_link: zod
     .string()
-    .nonempty('Can’t be empty')
     .url('Please check the URL')
     .min(1, 'Can’t be empty')
 })

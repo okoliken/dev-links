@@ -4,7 +4,6 @@ import DevInput from '../components/form-elements/DevInput.vue'
 import profileUploader from '../components/profile-uploader.vue'
 
 import { onMounted, ref } from 'vue'
-import { userDetails } from '../reusables/userInfo'
 import { useUpload } from '../reusables/upload'
 import { Form as UpdateProfileForm } from 'vee-validate'
 import { profileSchema } from '../formSchema'
@@ -20,13 +19,20 @@ const handleSubmit = () => {
   }
 }
 
+const userDetails = () => {
+  const user = sessionStorage.getItem('user')
+  if (user !== null) {
+    return JSON.parse(user)
+  } else return null
+}
+
 onMounted(() => {
-  if (userDetails.value) {
-    userInfo.email = userDetails.value?.email
+  if (userDetails()) {
+    userInfo.email = userDetails()?.email
   }
 
-  if (userDetails.value?.name) {
-    const name = userDetails.value?.name.split(' ')
+  if (userDetails()?.name) {
+    const name = userDetails()?.name.split(' ')
     userInfo.first_name = name[0]
     userInfo.last_name = name[1]
   } else return

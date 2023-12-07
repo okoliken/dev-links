@@ -1,11 +1,7 @@
 
-
-import { computed } from 'vue'
-
-const user = sessionStorage.getItem('user')
-
-export const userDetails = computed(() => {
+export const userDetails = () => {
+  const user = sessionStorage.getItem('user')
   if(user !== null) {
     return JSON.parse(user)
   } else return null
-})
+}

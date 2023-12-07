@@ -5,16 +5,19 @@ import FrameTwo from '../components/FrameTwo.vue'
 import ProfileFrame from '../components/ProfileFrame.vue'
 import { onMounted } from 'vue'
 import { useLink } from '../reusables/links'
+import { useAuthorize } from '../reusables/auth'
 import { useDbActions } from '../reusables/dbActions'
 import { Server } from '../utils/config'
 
 const { createLink } = useLink()
+const { getUser } = useAuthorize()
 import { useUpload } from '../reusables/upload'
 const { imgBlob, sterilizeData } = useUpload()
 
 
 
 onMounted(async () => {
+  await getUser()
   try {
     const data = await useDbActions.getLinks(Server.collectionID)
 

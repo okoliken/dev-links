@@ -19,6 +19,7 @@ import DevButton from '../components/form-elements/DevButton.vue'
 import { showToast } from '../useToast'
 import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
+import { useAuthorize } from '../reusables/auth'
 import { useUpload } from '../reusables/upload'
 import { useDbActions } from '../reusables/dbActions'
 import { Server } from '../utils/config'
@@ -26,8 +27,12 @@ import { useLink } from '../reusables/links'
 
 const { createLink } = useLink()
 const { imgBlob, sterilizeData } = useUpload()
+const { getUser } = useAuthorize()
+
+
 
 onMounted(async () => {
+  await getUser()
   try {
     const data = await useDbActions.getLinks(Server.collectionID)
 
