@@ -3,14 +3,14 @@ import DevLinks from '../components/DevLinks.vue'
 import { useLink } from '../reusables/links'
 import { useUpload } from '../reusables/upload'
 
-
-const userDetail =  () => {
-  const user =  sessionStorage.getItem('user')
-  return JSON.parse(user)
+const userDetail = () => {
+  const user = sessionStorage.getItem('user')
+  if (user !== null) {
+    return JSON.parse(user)
+  } else return null
 }
 const { createLink } = useLink()
 const { imgBlob } = useUpload()
-
 </script>
 
 <template>
