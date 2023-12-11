@@ -48,7 +48,7 @@ onMounted(() => {
 
     <Transition
       name="custom-classes"
-      enter-active-class="animate__animated animate__fadeInDown"
+      enter-active-class="animate__animated animate__fadeInUp"
       leave-active-class="animate__animated animate__fadeOut"
       mode="in-out"
     >
