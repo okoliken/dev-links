@@ -10,7 +10,7 @@ const { imgBlob } = useUpload()
 <template>
   <div class="!w-full max-w-[350px] profile flex items-center justify-center flex-col">
     <div class="border-4 border-brandPurple w-[104px] h-[104px] rounded-full">
-      <div v-if="!imgBlob" class="w-[96px] h-[96px] bg-[#EEEEEE] rounded-full"></div>
+      <div v-if="!imgBlob" class="w-[96px] h-[96px] bg-[#EEEEEE] rounded-full animate-pulse"></div>
       <img
         v-else
         class="w-[104px] h-[96px] rounded-full object-cover"
@@ -22,10 +22,19 @@ const { imgBlob } = useUpload()
       <h2 class="text-brandDarkGrey text-[32px] font-bold leading-[150%] text-center">
         {{ userDetails()?.name }}
       </h2>
-      <p class="text-brandSoftGrey text-[16px] font-light text-center">{{ userDetails()?.email }}</p>
+      <p class="text-brandSoftGrey text-[16px] font-light text-center">
+        {{ userDetails()?.email }}
+      </p>
     </div>
     <div class="w-full mt-12">
-      <DevLinks :links="links" v-for="links in createLink" :key="links.id" />
+      <template v-if="createLink.length <= 0">
+        <div
+          v-for="i in 4"
+          :key="i"
+          class="bg-[#EEEEEE] rounded-[8px] h-[44px] w-full mb-4 animate-pulse"
+        ></div>
+      </template>
+      <DevLinks v-else :links="links" v-for="links in createLink" :key="links.id" />
     </div>
   </div>
 </template>

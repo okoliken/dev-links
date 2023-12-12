@@ -1,11 +1,11 @@
 import { ref, reactive, computed } from 'vue'
-import { useDbActions } from '../reusables/dbActions'
-import { notify } from '../reusables/auth'
+import { useDbActions } from './dbActions'
+import { notify } from './auth'
 import { Server } from '../utils/config'
-import { userDetails } from '../reusables/userInfo'
+import { userDetails } from './userInfo'
 import { showToast } from '../useToast'
-import { useLink } from '../reusables/links'
-import { useAuthorize } from '../reusables/auth'
+import { useLink } from './links'
+import { useAuthorize } from './auth'
 
 const { createLink } = useLink()
 const imgBlob = ref<any>(null)

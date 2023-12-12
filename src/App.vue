@@ -5,7 +5,6 @@ import RootLayout from './layouts/RootLayout.vue'
 
 import type { ProgressFinisher } from '@marcoschulte/vue3-progress'
 import { useProgress } from '@marcoschulte/vue3-progress'
-import { useLink } from './reusables/links'
 
 const progresses = [] as ProgressFinisher[]
 const router = useRouter()
@@ -23,8 +22,6 @@ router.afterEach(() => {
 onMounted(() => {
   document.documentElement.style.setProperty('--animate-duration', '.3s')
 })
-
-
 </script>
 
 <template>
@@ -33,4 +30,3 @@ onMounted(() => {
     <RouterView />
   </RootLayout>
 </template>
-

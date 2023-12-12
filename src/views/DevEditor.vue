@@ -18,11 +18,9 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
 import { useUpload } from '../reusables/upload'
 import { useDbActions } from '../reusables/dbActions'
-import { useAuthorize } from '../reusables/auth'
 
 import { notify } from '../reusables/auth'
 const { selectOptions, createLink } = useLink()
-const { logout } = useAuthorize()
 
 // disable dnd on mobile
 const isMobile = computed(() => {
@@ -85,7 +83,6 @@ const deleteLink = async (id: { id: string; docId: string }) => {
 
 <template>
   <main>
-    
     <div>
       <h1 class="text-[24px] lg:text-[32px] font-bold leading-[150%] mb-2 md:mb-3">
         Customize your links

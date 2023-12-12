@@ -40,10 +40,11 @@ const router = createRouter({
       }
     },
     {
-      path: '/preview-my-links',
+      path: '/preview/:id',
       name: 'User Preview Page',
       // @ts-ignore
       component: () => import('../views/UserPreview.vue'),
+      props:true,
       meta: {
         hasAccess: false,
         layout: UserPreviewLayout

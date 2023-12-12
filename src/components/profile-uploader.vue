@@ -43,7 +43,7 @@ const openFile = () => {
   fileInput.value?.click()
 }
 
-const handleFileChange =  (event: Event) => {
+const handleFileChange = (event: Event) => {
   const input = event.target as HTMLInputElement
   file.value = input.files?.[0]
 

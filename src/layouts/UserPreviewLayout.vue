@@ -11,7 +11,6 @@
   </div>
 </template>
 
-
 <script lang="ts" setup>
 import { onMounted } from 'vue'
 import { useAuthorize } from '../reusables/auth'
@@ -23,8 +22,6 @@ import { useLink } from '../reusables/links'
 const { createLink } = useLink()
 const { imgBlob, sterilizeData } = useUpload()
 const { getUser } = useAuthorize()
-
-
 
 onMounted(async () => {
   await getUser()
@@ -47,8 +44,6 @@ onMounted(async () => {
     return
   }
 })
-
-
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import DevInput from '../../components/form-elements/DevInput.vue'
 import DevButton from '../../components/form-elements/DevButton.vue'
-import  { ref } from 'vue'
+import { ref } from 'vue'
 import { Form } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { signUpSchema, getSubmitRegFn } from '../../formSchema'
@@ -9,8 +9,7 @@ import { signUpSchema, getSubmitRegFn } from '../../formSchema'
 import { useAuthorize } from '../../reusables/auth'
 const formSchema = toTypedSchema(signUpSchema)
 
-const {loading, register} = useAuthorize()
-
+const { loading, register } = useAuthorize()
 
 const email = ref('')
 const password = ref('')

@@ -14,8 +14,6 @@ const { getUser } = useAuthorize()
 import { useUpload } from '../reusables/upload'
 const { imgBlob, sterilizeData } = useUpload()
 
-
-
 onMounted(async () => {
   await getUser()
   try {
@@ -70,7 +68,6 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
 
 <!-- 
 
