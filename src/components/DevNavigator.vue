@@ -3,6 +3,9 @@ import DevButton from './form-elements/DevButton.vue'
 import Tags from '../components/DevTags.vue'
 import PreviewEye from './icons/PreviewEye.vue'
 import { Icon } from '@iconify/vue'
+import { useAuthorize } from '../reusables/auth'
+
+const { logout } = useAuthorize()
 </script>
 
 <template>
@@ -22,6 +25,7 @@ import { Icon } from '@iconify/vue'
       </div>
       <div class="flex items-center gap-x-1">
         <div
+          @click="logout"
           class="flex items-center gap-x-1 cursor-pointer bg-white h-12 py-1 px-2"
         >
           <Icon class="text-[20px] text-gray-500 font-semibold" icon="ic:twotone-logout" />

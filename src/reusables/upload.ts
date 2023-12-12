@@ -12,7 +12,7 @@ const imgBlob = ref<any>(null)
 const loading = ref(false)
 const btnState = ref(false)
 const logs = ref([])
-const fileId = ref('')
+const fileId = ref<null | string>(null)
 
 interface file {
   $id: string
@@ -35,11 +35,14 @@ export const useUpload = () => {
         notify(error)
       }
     } else {
-      try {
-        await useDbActions.deleteImage(fileId.value)
-      } catch (error: any) {
-        notify(error)
+      if (fileId.value !== null) {
+        try {
+          await useDbActions.deleteImage(fileId.value)
+        } catch (error: any) {
+          notify(error)
+        }
       }
+
       try {
         await useDbActions.uploader(img)
       } catch (error: any) {

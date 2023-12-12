@@ -38,7 +38,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-brandGrey min-h-screen relaive">
+  <div class="bg-brandGrey min-h-screen relative">
     <div class="w-full mb-4 sm:mb-0 md:p-4 fixed z-50 bg-brandGrey">
       <DevNavigator />
     </div>
